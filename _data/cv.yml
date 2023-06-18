@@ -1,0 +1,78 @@
+- title: General Information
+  type: map
+  contents:
+    - name: Full Name
+      value: Snehal Gharat
+    - name: Date of Birth
+      value: 17th April 1997
+    - name: Languages
+      value: English, Hindi, Marathi
+
+- title: Education
+  type: time_table
+  contents:
+    - title: Masters in Technology (M.Tech.)
+      institution: Malaviya National Institute of Technology, Jaipur
+      year: 2019 - 2021
+      description:
+        - Specialization in Computer Science and Engineering (CGPA - 8.75)
+        - Awarded Gold medal for outstanding academic performance.
+        - Worked on Face Aging using Style Transfer thesis under guidance of Dr. Neeta Nain, sponsored by MeitY, Gov. of India.
+
+    - title: Bachelors in Technology (B.Tech.)
+      institution: Dr. Babasaheb Ambedkar Technological University, Lonere
+      year: 2014 - 2018
+      description:
+        - Specialization in Computer Science and Engineering (CGPA - 8.9)
+        - Class Representative for 4 years 
+        - Member of organizing committee for TEDxBATU, Cynosure Techfest.
+
+- title: Experience
+  type: time_table
+  contents:
+    - title: Software Developer Associate 
+      institution: Halliburton, Bangalore
+      year: 2021 - Current
+      description:
+        - Developed an automated customer onboarding system by integrating Okta API with Python and Bash scripting, significantly reducing the workload on the support team by 80%
+        - Analysis of issues logged by end users, business team and working on incidents and severity issues
+        - Designed and developed custom reports tailored to user issue analysis utilizing Salesforce Lightning Experience's reporting capabilities.
+        - Gained good understanding of AWS and Azure cloud services.
+
+    - title: Eklaavya Summer Internship
+      institution: Indian Institute of Technology, Bombay (IITB)
+      year: 2017
+      description:
+        - Developed Physics Interactive Animation Creator, an interactive platform to create physics animations with minimal coding.
+        - Responsible to create physics apparatus using Three.js library.
+
+- title: Projects
+  type: time_table
+  contents:
+    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
+      year: 2015-now
+      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
+
+- title: Honors and Awards
+  type: time_table
+  contents:
+    - year: 2021
+      items: 
+        - Gold Medal in M.Tech.
+
+- title: Academic Interests
+  type: nested_list
+  contents:
+    - title: Deep Learning
+      items: 
+        - Description 1.
+        - Description 2.
+    - title: Topic 2.
+      items:
+        - Description 1.
+        - Description 2.
+
+- title: Other Interests
+  type: list
+  contents:
+    - <u>Hobbies:</u> Drawing, Reading novels, etc.
