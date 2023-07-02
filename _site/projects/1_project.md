@@ -4,8 +4,11 @@ title: Face Aging using Style Transfer
 description: a M.Tech thesis project under KhojApnoKi sponsored by MeitY Gov. of India 
 img: assets/img/12.jpg
 importance: 1
-category: work
 ---
+
+Face Aging is a technique to render a face image with aging effects, while preserving the attribute-irrelevant regions. With Generative Adversarial Network (GANs) we proposed a style based face ageing model following encoder-decoder architecture and skip connections with selective transfer units (STU) to imporve image quality and modify encoder feature for enchance attribute editing.
+Our model is trained on unparied dataset and used style information gathered from random image from target age groups.
+
 
     ---
     layout: page
