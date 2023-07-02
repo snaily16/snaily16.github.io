@@ -1,17 +1,15 @@
----
+--
 layout: page
-title: project 1
-description: a project with a background image
+title: Face Aging using Style Transfer
+description: a M.Tech thesis project under KhojApnoKi sponsored by MeitY Gov. of India 
 img: assets/img/12.jpg
 importance: 1
 category: work
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+Face Aging is a technique to render a face image with aging effects, while preserving the attribute-irrelevant regions. With Generative Adversarial Network (GANs) we proposed a style based face ageing model following encoder-decoder architecture and skip connections with selective transfer units (STU) to imporve image quality and modify encoder feature for enchance attribute editing.
+Our model is trained on unparied dataset and used style information gathered from random image from target age groups.
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
 
     ---
     layout: page
