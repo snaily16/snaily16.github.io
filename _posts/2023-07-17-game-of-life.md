@@ -111,14 +111,14 @@ function gameOfLife(){
   grid[rows-1] = temp_prev;
 }
 ```
-<iframe src="https://editor.p5js.org/snaily16/full/cxIbSOh3Y"></iframe>
+<iframe src="https://editor.p5js.org/snaily16/full/cxIbSOh3Y" style="width:100%"></iframe>
 Please checkout the demo [here](https://editor.p5js.org/snaily16/full/cxIbSOh3Y).
 
 #### Glider Guns
 
 Conway's Game of Life also allows for the construction of various logical components. Glider guns, for example, are structures that continually generate gliders, which can be thought of as moving signals. These glider guns can be used to create logic gates such as AND, OR, and NOT gates, forming the building blocks of more complex computational systems within the game.
 
-{% include figure.html path="assets/img/life/life2.png" class="img-fluid rounded z-depth-1" %}
+{% include figure.html path="assets/img/life/life1.png" class="img-fluid rounded z-depth-1" %}
 
 ### Complexity and Universality of the Game
 The Game of Life possesses both complexity and universality, making it a fascinating subject in the realm of computational theory. Let's explore these concepts in more detail:
