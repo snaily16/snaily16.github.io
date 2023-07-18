@@ -111,7 +111,7 @@ function gameOfLife(){
   grid[rows-1] = temp_prev;
 }
 ```
-<iframe src="https://editor.p5js.org/snaily16/full/cxIbSOh3Y" style="width:100%;height:550px"></iframe>
+<iframe src="https://editor.p5js.org/snaily16/full/cxIbSOh3Y" style="width:100%;height:580px"></iframe>
 Please checkout the demo [here](https://editor.p5js.org/snaily16/full/cxIbSOh3Y).
 
 #### Glider Guns
