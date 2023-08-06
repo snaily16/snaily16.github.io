@@ -38,7 +38,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://snaily16.github.io/blog/2023/game-of-life/">
+    <link rel="canonical" href="http://localhost:4000/blog/2023/game-of-life/">
 
     <!-- Dark Mode -->
     
@@ -126,18 +126,18 @@
     <p class="post-tags">
       <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
         ·  
-        <a href="/blog/tag/conway">
-          <i class="fas fa-hashtag fa-sm"></i> conway</a>  
-          <a href="/blog/tag/game">
-          <i class="fas fa-hashtag fa-sm"></i> game</a>  
-          <a href="/blog/tag/of">
-          <i class="fas fa-hashtag fa-sm"></i> of</a>  
-          <a href="/blog/tag/life">
-          <i class="fas fa-hashtag fa-sm"></i> life</a>  
+        <a href="/blog/tag/javascript">
+          <i class="fas fa-hashtag fa-sm"></i> javascript</a>  
+          <a href="/blog/tag/game-of-life">
+          <i class="fas fa-hashtag fa-sm"></i> game-of-life</a>  
+          <a href="/blog/tag/code">
+          <i class="fas fa-hashtag fa-sm"></i> code</a>  
+          <a href="/blog/tag/math">
+          <i class="fas fa-hashtag fa-sm"></i> math</a>  
           
         ·  
-        <a href="/blog/category/my-stuff">
-          <i class="fas fa-tag fa-sm"></i> my-stuff</a>  
+        <a href="/blog/category/math-for-fun">
+          <i class="fas fa-tag fa-sm"></i> math-for-fun</a>  
           
 
     </p>
@@ -149,8 +149,20 @@
       <!--In the vast world of mathematical discoveries, there are certain creations that captivate our imagination and challenge our understanding of complexity.-->
 <p>As a geeky teenager navigating the vast landscape of computer science and mathematics, it’s not uncommon to stumble upon mind-bending puzzles and intricate algorithms that pique our curiosity. One such fascinating discovery is Conway’s Game of Life, an intriguing cellular automaton that captivates the minds of young tech enthusiasts. Developed by the brilliant mathematician John Horton Conway, this simple yet powerful concept has become a playground for exploration and experimentation for many geeky teenagers.</p>
 
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/life/life2.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
 <blockquote>
-"The Game of Life is a kind of microcosm of life itself." - John Horton Conway
+"If experimenters have free will, then so do elementary particles." - John Horton Conway
 </blockquote>
 <h3 id="the-basics-of-conways-game-of-life">The Basics of Conway’s Game of Life</h3>
 
@@ -171,18 +183,18 @@ Every cell interacts with its eight neighbours, which are the cells that are hor
 <p>By applying these rules simultaneously to every cell in the grid, the Game of Life progresses from one generation to the next, creating visually stunning and intricate patterns. Each cell’s state is updated based on the states of its neighboring cells, leading to a dynamic and evolving system.</p>
 
 <blockquote>
-"It's a bit like a child's version of creating a universe, except it's not just a universe, it's every possible universe." - Stephen Hawking
+"In Conway's Game of Life, chaos emerges from order."
 </blockquote>
 
-<h3 id="patterns-geeky-art-in-motion">Patterns: Geeky Art in Motion:</h3>
+<h3 id="patterns-geeky-art-in-motion">Patterns: Geeky Art in Motion</h3>
 
-<p>It’s time to geek out over the mind-boggling patterns that emerge within the Game of Life.</p>
+<p>It’s time to geek out over the mind-boggling patterns that emerge within the Game of Life. I’ll use <a href="https://p5js.org/" rel="external nofollow noopener" target="_blank">p5.js</a> to implement this.</p>
 
 <p>The algorithm for Conway’s Game of Life can be summarized in the following steps:</p>
 
-<ol>
+<ul>
   <li>Create an initial grid: Set up a two-dimensional grid of cells, where each cell can be in one of two states: alive or dead. This initial configuration serves as the starting point for the game.</li>
-</ol>
+</ul>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">make2DArray</span><span class="p">(</span><span class="nx">rows</span><span class="p">,</span> <span class="nx">cols</span><span class="p">){</span>
   <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Array</span><span class="p">(</span><span class="nx">rows</span><span class="p">);</span>
@@ -193,33 +205,31 @@ Every cell interacts with its eight neighbours, which are the cells that are hor
 <span class="p">}</span>
 </code></pre></div></div>
 
-<ol>
+<ul>
   <li>Iterate over the grid: For each cell in the grid, apply the rules to determine its state. To apply these rules, count the number of live neighbors for each cell. Neighbors include the eight cells adjacent to the current cell (horizontal, vertical, and diagonal). Based on the current state and the number of live neighbors, determine the cell’s state in the next generation.</li>
-</ol>
+</ul>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">countNeighbours</span><span class="p">(</span><span class="nx">grid</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">){</span>
-  <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">alivenbrs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
     <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
       <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">j</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
         <span class="k">continue</span><span class="p">;</span>
       <span class="p">}</span>
-      <span class="kd">let</span> <span class="nx">live</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-      <span class="kd">let</span> <span class="nx">val_rows</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="nx">x</span><span class="o">+</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">x</span><span class="o">+</span><span class="nx">i</span> <span class="o">&gt;=</span> <span class="nx">rows</span><span class="p">)</span>
-      <span class="kd">let</span> <span class="nx">val_cols</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="nx">y</span><span class="o">+</span><span class="nx">j</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">y</span><span class="o">+</span><span class="nx">j</span> <span class="o">&gt;=</span> <span class="nx">cols</span><span class="p">)</span>
-      <span class="k">if </span><span class="p">(</span><span class="nx">val_rows</span> <span class="o">&amp;&amp;</span> <span class="nx">val_cols</span><span class="p">){</span>
-        <span class="k">if </span><span class="p">(</span><span class="nx">grid</span><span class="p">[</span><span class="nx">x</span><span class="o">+</span><span class="nx">i</span><span class="p">][</span><span class="nx">y</span><span class="o">+</span><span class="nx">j</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">)</span> <span class="nx">live</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="nx">sum</span> <span class="o">=</span> <span class="nx">sum</span> <span class="o">+</span> <span class="nx">live</span><span class="p">;</span>
-      <span class="p">}</span>
+      <span class="kd">let</span> <span class="nx">rx</span> <span class="o">=</span> <span class="p">((</span><span class="nx">x</span><span class="o">+</span><span class="nx">i</span><span class="p">)</span><span class="o">%</span><span class="nx">rows</span> <span class="o">+</span> <span class="nx">rows</span><span class="p">)</span><span class="o">%</span><span class="nx">rows</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">ry</span> <span class="o">=</span> <span class="p">((</span><span class="nx">y</span><span class="o">+</span><span class="nx">j</span><span class="p">)</span><span class="o">%</span><span class="nx">cols</span> <span class="o">+</span> <span class="nx">cols</span><span class="p">)</span><span class="o">%</span><span class="nx">cols</span><span class="p">;</span>    
+    
+      <span class="k">if </span><span class="p">(</span><span class="nx">grid</span><span class="p">[</span><span class="nx">rx</span><span class="p">][</span><span class="nx">ry</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">){</span><span class="nx">alivenbrs</span> <span class="o">=</span> <span class="nx">alivenbrs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;}</span>
+
     <span class="p">}</span>
   <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">alivenbrs</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<ol>
+<ul>
   <li>Update the grid: Once all cells have been evaluated and their next states determined, update the grid to reflect the new generation. Set each cell’s state according to the rules applied in the previous step.</li>
-</ol>
+</ul>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">updateCell</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="p">){</span>
   <span class="kd">let</span> <span class="nx">liveNB</span> <span class="o">=</span>  <span class="nf">countNeighbours</span><span class="p">(</span><span class="nx">grid</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="p">);</span>
@@ -241,39 +251,59 @@ Every cell interacts with its eight neighbours, which are the cells that are hor
 <span class="p">}</span>
 </code></pre></div></div>
 
-<ol>
+<ul>
   <li>Repeat: Iterate through the grid, applying the rules and updating the states of cells to create subsequent generations. Continue this process indefinitely or until a specific termination condition is met.</li>
-</ol>
+</ul>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">gameOfLife</span><span class="p">(){</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kd">function</span> <span class="nf">gameOfLife</span><span class="p">(){</span>
   <span class="kd">let</span> <span class="nx">temp_curr</span><span class="p">;</span>
   <span class="kd">let</span> <span class="nx">temp_prev</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">temp_0</span><span class="p">;</span>
   <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">rows</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
     <span class="nx">temp_curr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Array</span><span class="p">(</span><span class="nx">cols</span><span class="p">).</span><span class="nf">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
     <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="nx">cols</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
       <span class="nx">temp_curr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="nf">updateCell</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="p">);</span>
+      <span class="c1">//new_grid[i][j] = updateCell(i,j);</span>
     <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">){</span>
       <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">temp_prev</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="nx">temp_prev</span> <span class="o">=</span> <span class="nx">temp_curr</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+      <span class="nx">temp_0</span> <span class="o">=</span> <span class="nx">temp_curr</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="nx">grid</span><span class="p">[</span><span class="nx">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">temp_prev</span><span class="p">;</span>
+  <span class="nx">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">temp_0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
+<iframe src="https://editor.p5js.org/snaily16/full/yYPBNmpRk" style="width:100%;height:580px"></iframe>
+<p>Please checkout the <a href="https://editor.p5js.org/snaily16/sketches/yYPBNmpRk" rel="external nofollow noopener" target="_blank">demo</a> and <a href="https://github.com/snaily16/GameOfLife" rel="external nofollow noopener" target="_blank">github code</a> here.</p>
 
-<h4 id="glider-guns">Glider Guns:</h4>
+<h4 id="glider-guns">Glider Guns</h4>
 
 <p>Conway’s Game of Life also allows for the construction of various logical components. Glider guns, for example, are structures that continually generate gliders, which can be thought of as moving signals. These glider guns can be used to create logic gates such as AND, OR, and NOT gates, forming the building blocks of more complex computational systems within the game.</p>
+
+<figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/life/life.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
 
 <h3 id="complexity-and-universality-of-the-game">Complexity and Universality of the Game</h3>
 <p>The Game of Life possesses both complexity and universality, making it a fascinating subject in the realm of computational theory. Let’s explore these concepts in more detail:</p>
 
-<h4 id="the-emergence-of-complexity">The Emergence of Complexity:</h4>
+<h4 id="the-emergence-of-complexity">The Emergence of Complexity</h4>
 
 <p>Despite its simple set of rules, Conway’s Game of Life exhibits a stunning level of complexity. From the interplay of live and dead cells, intricate patterns emerge, ranging from stable structures to oscillators, gliders, and even self-replicating entities. The game’s evolution unfolds dynamically, showcasing the potential for endless possibilities within a finite set of rules.</p>
 
-<h4 id="universality-turing-completeness">Universality: Turing Completeness:</h4>
+<h4 id="universality-turing-completeness">Universality: Turing Completeness</h4>
 
 <p>One of the most astonishing aspects of Conway’s Game of Life is its universality, specifically its ability to simulate any Turing machine. A Turing machine is a theoretical model of computation that can solve any problem that can be computed algorithmically. By constructing specific configurations within the game, it is possible to create structures that mimic the behavior of a Turing machine, effectively transforming the Game of Life into a computational device capable of solving complex problems.</p>
 

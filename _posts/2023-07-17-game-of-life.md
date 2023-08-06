@@ -56,22 +56,20 @@ function make2DArray(rows, cols){
 
 ```js
 function countNeighbours(grid, x,y){
-  let sum = 0;
+  let alivenbrs = 0;
   for(let i=-1; i<2; i++){
     for(let j=-1; j<2; j++){
       if(i==0 && j==0){
         continue;
       }
-      let live = 0;
-      let val_rows = !(x+i < 0 || x+i >= rows)
-      let val_cols = !(y+j < 0 || y+j >= cols)
-      if (val_rows && val_cols){
-        if (grid[x+i][y+j]>=1) live = 1;
-        sum = sum + live;
-      }
+      let rx = ((x+i)%rows + rows)%rows;
+      let ry = ((y+j)%cols + cols)%cols;    
+    
+      if (grid[rx][ry]>=1){alivenbrs = alivenbrs + 1;}
+
     }
   }
-  return sum;
+  return alivenbrs;
 }
 ```
 
@@ -85,8 +83,14 @@ function updateCell(i,j){
   if(curr_state <= 0 && liveNB == 3){
     new_state = 1;
   }
+  else if(curr_state<=0){
+    new_state -= 1;
+  }
   else if (curr_state>=1 && (liveNB<2 || liveNB >3)){
       new_state = 0;
+  }
+  else if (curr_state>=1){
+    new_state += 1;
   }
   return new_state;
 }
@@ -95,24 +99,30 @@ function updateCell(i,j){
 - Repeat: Iterate through the grid, applying the rules and updating the states of cells to create subsequent generations. Continue this process indefinitely or until a specific termination condition is met.
 
 ```js
+
 function gameOfLife(){
   let temp_curr;
   let temp_prev;
+  let temp_0;
   for(let i=0; i<rows; i++){
     temp_curr = new Array(cols).fill(0);
     for(let j=0; j<cols; j++){
       temp_curr[j] = updateCell(i,j);
+      //new_grid[i][j] = updateCell(i,j);
     }
-    if(i>0){
+    if(i>1){
       grid[i-1] = temp_prev;
     }
     temp_prev = temp_curr;
+    if(i==0)
+      temp_0 = temp_curr;
   }
   grid[rows-1] = temp_prev;
+  grid[0] = temp_0;
 }
 ```
-<iframe src="https://editor.p5js.org/snaily16/full/cxIbSOh3Y" style="width:100%;height:580px"></iframe>
-Please checkout the demo [here](https://editor.p5js.org/snaily16/full/cxIbSOh3Y).
+<iframe src="https://editor.p5js.org/snaily16/full/yYPBNmpRk" style="width:100%;height:580px"></iframe>
+Please checkout the [demo](https://editor.p5js.org/snaily16/sketches/yYPBNmpRk) and [github code](https://github.com/snaily16/GameOfLife) here.
 
 #### Glider Guns
 
@@ -133,5 +143,4 @@ Despite its simple set of rules, Conway's Game of Life exhibits a stunning level
 One of the most astonishing aspects of Conway's Game of Life is its universality, specifically its ability to simulate any Turing machine. A Turing machine is a theoretical model of computation that can solve any problem that can be computed algorithmically. By constructing specific configurations within the game, it is possible to create structures that mimic the behavior of a Turing machine, effectively transforming the Game of Life into a computational device capable of solving complex problems.
 
 In summary, the Game of Life embodies both complexity and universality. Its simple rules give rise to intricate and visually stunning patterns, demonstrating the inherent complexity that can emerge from simplicity. Moreover, its ability to simulate any other computational system showcases its universality, illustrating the vast computational power that can be harnessed within this seemingly simple cellular automaton.
-
 
