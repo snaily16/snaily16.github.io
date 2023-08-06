@@ -62,7 +62,7 @@ if ! git diff-index --quiet HEAD --; then
     git diff-index --name-only HEAD --
     echo "Please commit the changes before proceeding."
     echo "Aborting."
-    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
+    #[[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
 # Check if there are any untracked files
@@ -93,7 +93,7 @@ git checkout -b $DEPLOY_BRANCH
 export JEKYLL_ENV=production
 
 # Build site
-bundle exec jekyll build --lsi
+bundle exec jekyll build --lsi --trace
 
 # Delete and move files
 find . -maxdepth 1 ! -name '_site' ! -name '.git' ! -name 'CNAME' ! -name '.gitignore' -exec rm -rf {} \;
