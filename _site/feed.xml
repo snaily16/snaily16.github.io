@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-08T23:02:02+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-23T09:20:06+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">Beyond 3.14</title><link href="http://localhost:4000/blog/2023/calcuate-pi-for-fun/" rel="alternate" type="text/html" title="Beyond 3.14" /><published>2023-08-06T00:00:00+05:30</published><updated>2023-08-06T00:00:00+05:30</updated><id>http://localhost:4000/blog/2023/calcuate-pi-for-fun</id><content type="html" xml:base="http://localhost:4000/blog/2023/calcuate-pi-for-fun/"><![CDATA[<p>Hey there, fellow math and computer enthusiasts! Today, we’re diving into one of the most captivating and profound constants in mathematics - Pi (\(\pi\)). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let’s embark on a journey to unravel the mysteries of pi and discover different ways of calculating \(\pi\).</p>
 
-<p>You may have wondered how people compute the value of \(pi\) accurately, and how do they know that they are accurate. Then you are at right place, today we will unravel the mysteries of convergence and error metrics.</p>
+<p>You may have wondered how people compute the value of \(\pi\) accurately, and how do they know that they are accurate. Then you are at right place, today we will unravel the mysteries of convergence and error metrics.</p>
 
 <figure>
 
@@ -16,152 +16,25 @@
 </figure>
 
 <blockquote>
-"If experimenters have free will, then so do elementary particles." - John Horton Conway
-</blockquote>
-<h3 id="the-basics-of-conways-game-of-life">The Basics of Conway’s Game of Life</h3>
-
-<p>Conway’s Game of Life is a zero-player game, meaning it requires no further input once the initial state is set. It consists of a grid of cells, each having two possible states: alive or dead. The rules that govern the evolution of these cells are deceptively simple but lead to complex and mesmerizing patterns.</p>
-
-<h3 id="the-rules-of-life">The Rules of Life</h3>
-<p>The Game of Life follows a set of simple rules that govern the behavior of its cellular automaton. These rules determine how each cell in the game’s grid evolves from one generation to the next. Here are the fundamental rules of the Game of Life:
-Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically, or diagonally adjacent.</p>
-<ol>
-  <li>Any live cell with fewer than two live neighbors dies, as if by underpopulation.</li>
-  <li>Any live cell with two or three live neighbors lives on to the next generation.</li>
-  <li>Any live cell with more than three live neighbors dies, as if by overpopulation.</li>
-  <li>Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.</li>
-</ol>
-
-<p>These four rules elegantly dictate the life and death of each cell, creating a dynamic system that unfolds over time.</p>
-
-<p>By applying these rules simultaneously to every cell in the grid, the Game of Life progresses from one generation to the next, creating visually stunning and intricate patterns. Each cell’s state is updated based on the states of its neighboring cells, leading to a dynamic and evolving system.</p>
-
-<blockquote>
-"In Conway's Game of Life, chaos emerges from order."
+"Truth is ever to be found in simplicity, and not in the multiplicity and confusion of things." – Isaac Newton
 </blockquote>
 
-<h3 id="patterns-geeky-art-in-motion">Patterns: Geeky Art in Motion</h3>
+<h3 id="introduction">Introduction</h3>
+<p>Pi (\(\pi\)), a symbol revered by mathematicians and enthusiasts alike, encapsulates the profound link between the geometry of circles and the elegance of numbers. It’s no ordinary constant; it’s a mathematical enigma that carries the weight of countless equations and the beauty of infinite precision.</p>
 
-<p>It’s time to geek out over the mind-boggling patterns that emerge within the Game of Life. I’ll use <a href="https://p5js.org/">p5.js</a> to implement this.</p>
+<p>Defined as the ratio of a circle’s circumference to its diameter, pi unveils the mystery of circles in a single equation:</p>
 
-<p>The algorithm for Conway’s Game of Life can be summarized in the following steps:</p>
+\[\pi = \frac{Circumference}{Diameter}\]
 
-<ul>
-  <li>Create an initial grid: Set up a two-dimensional grid of cells, where each cell can be in one of two states: alive or dead. This initial configuration serves as the starting point for the game.</li>
-</ul>
+<p>However, pi’s allure goes far beyond a simple fraction. Its decimal representation, an unending series of digits without repetition, makes it an irrational number. Let’s emphasize this infinite beauty with the well-known approximation:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">make2DArray</span><span class="p">(</span><span class="nx">rows</span><span class="p">,</span> <span class="nx">cols</span><span class="p">){</span>
-  <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Array</span><span class="p">(</span><span class="nx">rows</span><span class="p">);</span>
-  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">rows</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Array</span><span class="p">(</span><span class="nx">cols</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">arr</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
+\[\pi \approx 3.14159\]
 
-<ul>
-  <li>Iterate over the grid: For each cell in the grid, apply the rules to determine its state. To apply these rules, count the number of live neighbors for each cell. Neighbors include the eight cells adjacent to the current cell (horizontal, vertical, and diagonal). Based on the current state and the number of live neighbors, determine the cell’s state in the next generation.</li>
-</ul>
+<p>Yet, pi’s significance reverberates throughout diverse mathematical and scientific domains. In geometry, pi enables us to calculate the areas and volumes of circles and spheres. In trigonometry, pi influences the sine and cosine functions, laying the foundation for understanding waves and oscillations. And when we venture into calculus, pi emerges yet again, intertwining with limits, integrals, and derivatives in intricate equations.</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">countNeighbours</span><span class="p">(</span><span class="nx">grid</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">){</span>
-  <span class="kd">let</span> <span class="nx">alivenbrs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">j</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
-        <span class="k">continue</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="kd">let</span> <span class="nx">rx</span> <span class="o">=</span> <span class="p">((</span><span class="nx">x</span><span class="o">+</span><span class="nx">i</span><span class="p">)</span><span class="o">%</span><span class="nx">rows</span> <span class="o">+</span> <span class="nx">rows</span><span class="p">)</span><span class="o">%</span><span class="nx">rows</span><span class="p">;</span>
-      <span class="kd">let</span> <span class="nx">ry</span> <span class="o">=</span> <span class="p">((</span><span class="nx">y</span><span class="o">+</span><span class="nx">j</span><span class="p">)</span><span class="o">%</span><span class="nx">cols</span> <span class="o">+</span> <span class="nx">cols</span><span class="p">)</span><span class="o">%</span><span class="nx">cols</span><span class="p">;</span>    
-    
-      <span class="k">if </span><span class="p">(</span><span class="nx">grid</span><span class="p">[</span><span class="nx">rx</span><span class="p">][</span><span class="nx">ry</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">){</span><span class="nx">alivenbrs</span> <span class="o">=</span> <span class="nx">alivenbrs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;}</span>
+<p>Beyond these equations, pi’s pervasive presence extends into the realms of physics, engineering, and beyond. From calculating the motion of planets to designing structures that stand the test of time, pi’s role is undeniable.</p>
 
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">alivenbrs</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Update the grid: Once all cells have been evaluated and their next states determined, update the grid to reflect the new generation. Set each cell’s state according to the rules applied in the previous step.</li>
-</ul>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">updateCell</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="p">){</span>
-  <span class="kd">let</span> <span class="nx">liveNB</span> <span class="o">=</span>  <span class="nf">countNeighbours</span><span class="p">(</span><span class="nx">grid</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="p">);</span>
-  <span class="kd">let</span> <span class="nx">curr_state</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">];</span>
-  <span class="kd">let</span> <span class="nx">new_state</span> <span class="o">=</span> <span class="nx">curr_state</span><span class="p">;</span>
-  <span class="k">if</span><span class="p">(</span><span class="nx">curr_state</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">liveNB</span> <span class="o">==</span> <span class="mi">3</span><span class="p">){</span>
-    <span class="nx">new_state</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">curr_state</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">){</span>
-    <span class="nx">new_state</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">curr_state</span><span class="o">&gt;=</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">liveNB</span><span class="o">&lt;</span><span class="mi">2</span> <span class="o">||</span> <span class="nx">liveNB</span> <span class="o">&gt;</span><span class="mi">3</span><span class="p">)){</span>
-      <span class="nx">new_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">curr_state</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">){</span>
-    <span class="nx">new_state</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">new_state</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>Repeat: Iterate through the grid, applying the rules and updating the states of cells to create subsequent generations. Continue this process indefinitely or until a specific termination condition is met.</li>
-</ul>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kd">function</span> <span class="nf">gameOfLife</span><span class="p">(){</span>
-  <span class="kd">let</span> <span class="nx">temp_curr</span><span class="p">;</span>
-  <span class="kd">let</span> <span class="nx">temp_prev</span><span class="p">;</span>
-  <span class="kd">let</span> <span class="nx">temp_0</span><span class="p">;</span>
-  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">rows</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="nx">temp_curr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Array</span><span class="p">(</span><span class="nx">cols</span><span class="p">).</span><span class="nf">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="nx">cols</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
-      <span class="nx">temp_curr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="nf">updateCell</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="p">);</span>
-      <span class="c1">//new_grid[i][j] = updateCell(i,j);</span>
-    <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">){</span>
-      <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">temp_prev</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="nx">temp_prev</span> <span class="o">=</span> <span class="nx">temp_curr</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
-      <span class="nx">temp_0</span> <span class="o">=</span> <span class="nx">temp_curr</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">grid</span><span class="p">[</span><span class="nx">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">temp_prev</span><span class="p">;</span>
-  <span class="nx">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">temp_0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-<iframe src="https://editor.p5js.org/snaily16/full/yYPBNmpRk" style="width:100%;height:580px"></iframe>
-<p>Please checkout the <a href="https://editor.p5js.org/snaily16/sketches/yYPBNmpRk">demo</a> and <a href="https://github.com/snaily16/GameOfLife">github code</a> here.</p>
-
-<h4 id="glider-guns">Glider Guns</h4>
-
-<p>Conway’s Game of Life also allows for the construction of various logical components. Glider guns, for example, are structures that continually generate gliders, which can be thought of as moving signals. These glider guns can be used to create logic gates such as AND, OR, and NOT gates, forming the building blocks of more complex computational systems within the game.</p>
-
-<figure>
-
-  <picture>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/life/life.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" onerror="this.onerror=null; $('.responsive-img-srcset').remove();" />
-
-  </picture>
-
-</figure>
-
-<h3 id="complexity-and-universality-of-the-game">Complexity and Universality of the Game</h3>
-<p>The Game of Life possesses both complexity and universality, making it a fascinating subject in the realm of computational theory. Let’s explore these concepts in more detail:</p>
-
-<h4 id="the-emergence-of-complexity">The Emergence of Complexity</h4>
-
-<p>Despite its simple set of rules, Conway’s Game of Life exhibits a stunning level of complexity. From the interplay of live and dead cells, intricate patterns emerge, ranging from stable structures to oscillators, gliders, and even self-replicating entities. The game’s evolution unfolds dynamically, showcasing the potential for endless possibilities within a finite set of rules.</p>
-
-<h4 id="universality-turing-completeness">Universality: Turing Completeness</h4>
-
-<p>One of the most astonishing aspects of Conway’s Game of Life is its universality, specifically its ability to simulate any Turing machine. A Turing machine is a theoretical model of computation that can solve any problem that can be computed algorithmically. By constructing specific configurations within the game, it is possible to create structures that mimic the behavior of a Turing machine, effectively transforming the Game of Life into a computational device capable of solving complex problems.</p>
-
-<p>In summary, the Game of Life embodies both complexity and universality. Its simple rules give rise to intricate and visually stunning patterns, demonstrating the inherent complexity that can emerge from simplicity. Moreover, its ability to simulate any other computational system showcases its universality, illustrating the vast computational power that can be harnessed within this seemingly simple cellular automaton.</p>]]></content><author><name></name></author><category term="math-for-fun" /><category term="python" /><category term="code" /><category term="math" /><summary type="html"><![CDATA[Fascinating ways of calculating $$\pi$$ upto 5000 digits.]]></summary></entry><entry><title type="html">Conway’s Game of Life</title><link href="http://localhost:4000/blog/2023/game-of-life/" rel="alternate" type="text/html" title="Conway’s Game of Life" /><published>2023-07-18T03:20:10+05:30</published><updated>2023-07-18T03:20:10+05:30</updated><id>http://localhost:4000/blog/2023/game-of-life</id><content type="html" xml:base="http://localhost:4000/blog/2023/game-of-life/"><![CDATA[<!--In the vast world of mathematical discoveries, there are certain creations that captivate our imagination and challenge our understanding of complexity.-->
+<h3 id="origin-and-historical-significance-of-pi">Origin and Historical Significance of \(\pi\)</h3>]]></content><author><name></name></author><category term="math-for-fun" /><category term="python" /><category term="code" /><category term="math" /><summary type="html"><![CDATA[Fascinating ways of calculating $$\pi$$ upto 5000 digits.]]></summary></entry><entry><title type="html">Conway’s Game of Life</title><link href="http://localhost:4000/blog/2023/game-of-life/" rel="alternate" type="text/html" title="Conway’s Game of Life" /><published>2023-07-18T03:20:10+05:30</published><updated>2023-07-18T03:20:10+05:30</updated><id>http://localhost:4000/blog/2023/game-of-life</id><content type="html" xml:base="http://localhost:4000/blog/2023/game-of-life/"><![CDATA[<!--In the vast world of mathematical discoveries, there are certain creations that captivate our imagination and challenge our understanding of complexity.-->
 <p>As a geeky teenager navigating the vast landscape of computer science and mathematics, it’s not uncommon to stumble upon mind-bending puzzles and intricate algorithms that pique our curiosity. One such fascinating discovery is Conway’s Game of Life, an intriguing cellular automaton that captivates the minds of young tech enthusiasts. Developed by the brilliant mathematician John Horton Conway, this simple yet powerful concept has become a playground for exploration and experimentation for many geeky teenagers.</p>
 
 <figure>
