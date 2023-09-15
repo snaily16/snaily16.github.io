@@ -2,6 +2,12 @@ github_users:
   - snaily16
 
 github_repos:
+  - snaily16/GameOfLife
   - snaily16/Pi_for_fun
   - snaily16/GAN-Implementations-Pytorch
+  - snaily16/perspective_transformation
   - snaily16/Digit-Recognizer
+  - snaily16/TextSummarizer
+  - snaily16/FaceFilters
+  - snaily16/Content-Based-Image-Retrieval
+  - snaily16/manim-animations

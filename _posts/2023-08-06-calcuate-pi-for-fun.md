@@ -5,6 +5,8 @@ date: 2023-08-06
 description: Fascinating ways of calculating $$\pi$$ upto 5000 digits. 
 tags: python code math
 categories: math-for-fun
+toc:
+  sidebar: left
 ---
 
 Hey there, fellow math and computer enthusiasts! Today, we're diving into one of the most captivating and profound constants in mathematics - Pi ($$\pi$$). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let's embark on a journey to unravel the mysteries of pi and discover different ways of calculating $$\pi$$.
@@ -36,5 +38,36 @@ Yet, pi's significance reverberates throughout diverse mathematical and scientif
 Beyond these equations, pi's pervasive presence extends into the realms of physics, engineering, and beyond. From calculating the motion of planets to designing structures that stand the test of time, pi's role is undeniable.
 
 ### Origin and Historical Significance of $$\pi$$
+Certainly, here's a concise one-line summary of each historical point related to the origin and history of $$\pi$$:
 
+1. **Ancient Egypt and Babylon (circa 1900–1600 BCE)**: Early approximations of $$\pi$$ as 3.125.
 
+2. **Ancient Greece (circa 250 BCE)**: Archimedes' geometric approach establishes bounds on $$\pi$$ between 3.1408 and 3.1429.
+
+3. **India (circa 5th century CE)**: Aryabhata approximates $$\pi$$ as 62832/20000, or approximately 3.1416.
+
+4. **Islamic Golden Age (circa 9th-13th centuries CE)**: Al-Khwarizmi and Al-Kashi contribute with polygonal approximations and precise calculations to 16 decimal places.
+
+5. **Europe (Medieval and Renaissance Periods)**: Fibonacci and Ludolph van Ceulen make noteworthy contributions, with Ludolph calculating $$\pi$$ to 35 decimal places.
+
+### Modern Methods of Calculating Pi: Python Implementation
+Let's explore some modern methods used to calculate pi and provide Python implementations to demonstrate these techniques and calculating $$\pi$$ upto 5000 digits.
+
+#### Calculating $$\pi$$ using Machin-like formula
+This equation was discovered in 1706 by John Machin, and has been in use for around 300 years. It is suitable for the calculation of Pi because it converges quickly. The formula relates pi to arctangent (inverse tangent) values. Here's the formula:
+
+$$
+{\frac  {\pi }{4}}=4\arctan {\frac  {1}{5}}-\arctan {\frac  {1}{239}} 
+$$
+
+The Taylor's series expansion for arctangent is :
+
+$$
+arctan x=\sum _{n=0}^{\infty }{\frac {(-1)^{n}}{2n+1}}x^{2n+1}=x-{\frac {x^{3}}{3}}+{\frac {x^{5}}{5}}-{\frac {x^{7}}{7}}+\cdot
+$$
+
+#### Calculating $$\pi$$ using Wallis Product
+
+#### Calculating $$\pi$$ using Monte Carlo Method
+
+#### Calculating $$\pi$$ using Viète's formula

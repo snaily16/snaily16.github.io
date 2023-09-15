@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
 
     
+    <!-- Sidebar Table of Contents -->
+    <link href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css" rel="stylesheet">
+    
 
     <!-- Styles -->
     
@@ -116,7 +119,15 @@
     <!-- Content -->
     <div class="container mt-5">
       
-        <!-- _layouts/post.html -->
+        
+        <div class="row">
+          <!-- sidebar, which will move to the top on a small screen -->
+          <div class="col-sm-3">
+            <nav id="toc-sidebar" class="sticky-top"></nav>
+          </div>
+          <!-- main content area -->
+          <div class="col-sm-9">
+            <!-- _layouts/post.html -->
 
 <div class="post">
 
@@ -180,7 +191,43 @@
 <p>Beyond these equations, pi’s pervasive presence extends into the realms of physics, engineering, and beyond. From calculating the motion of planets to designing structures that stand the test of time, pi’s role is undeniable.</p>
 
 <h3 id="origin-and-historical-significance-of-pi">Origin and Historical Significance of \(\pi\)</h3>
+<p>Certainly, here’s a concise one-line summary of each historical point related to the origin and history of \(\pi\):</p>
 
+<ol>
+  <li>
+    <p><strong>Ancient Egypt and Babylon (circa 1900–1600 BCE)</strong>: Early approximations of \(\pi\) as 3.125.</p>
+  </li>
+  <li>
+    <p><strong>Ancient Greece (circa 250 BCE)</strong>: Archimedes’ geometric approach establishes bounds on \(\pi\) between 3.1408 and 3.1429.</p>
+  </li>
+  <li>
+    <p><strong>India (circa 5th century CE)</strong>: Aryabhata approximates \(\pi\) as 62832/20000, or approximately 3.1416.</p>
+  </li>
+  <li>
+    <p><strong>Islamic Golden Age (circa 9th-13th centuries CE)</strong>: Al-Khwarizmi and Al-Kashi contribute with polygonal approximations and precise calculations to 16 decimal places.</p>
+  </li>
+  <li>
+    <p><strong>Europe (Medieval and Renaissance Periods)</strong>: Fibonacci and Ludolph van Ceulen make noteworthy contributions, with Ludolph calculating \(\pi\) to 35 decimal places.</p>
+  </li>
+</ol>
+
+<h3 id="modern-methods-of-calculating-pi-python-implementation">Modern Methods of Calculating Pi: Python Implementation</h3>
+<p>Let’s explore some modern methods used to calculate pi and provide Python implementations to demonstrate these techniques and calculating \(\pi\) upto 5000 digits.</p>
+
+<h4 id="calculating-pi-using-machin-like-formula">Calculating \(\pi\) using Machin-like formula</h4>
+<p>This equation was discovered in 1706 by John Machin, and has been in use for around 300 years. It is suitable for the calculation of Pi because it converges quickly. The formula relates pi to arctangent (inverse tangent) values. Here’s the formula:</p>
+
+\[{\frac  {\pi }{4}}=4\arctan {\frac  {1}{5}}-\arctan {\frac  {1}{239}}\]
+
+<p>The Taylor’s series expansion for arctangent is :</p>
+
+\[arctan x=\sum _{n=0}^{\infty }{\frac {(-1)^{n}}{2n+1}}x^{2n+1}=x-{\frac {x^{3}}{3}}+{\frac {x^{5}}{5}}-{\frac {x^{7}}{7}}+\cdot\]
+
+<h4 id="calculating-pi-using-wallis-product">Calculating \(\pi\) using Wallis Product</h4>
+
+<h4 id="calculating-pi-using-monte-carlo-method">Calculating \(\pi\) using Monte Carlo Method</h4>
+
+<h4 id="calculating-pi-using-viètes-formula">Calculating \(\pi\) using Viète’s formula</h4>
 
     </div>
   </article>
@@ -228,6 +275,9 @@
 
 </div>
 
+          </div>
+        </div>
+        
       
     </div>
 
@@ -255,6 +305,9 @@
   <!-- Medium Zoom JS -->
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
   <script defer src="/assets/js/zoom.js"></script>
+  <!-- Sidebar Table of Contents -->
+  <script defer src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
+
 
   <!-- Bootstrap Table -->
   <script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>

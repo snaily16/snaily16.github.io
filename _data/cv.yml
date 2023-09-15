@@ -5,8 +5,12 @@
       value: Snehal Gharat
     - name: Date of Birth
       value: 17th April 1997
-    - name: Languages
-      value: English, Hindi, Marathi
+    - name: Programming Languages
+      value: C++, Python, Java
+    - name: Skills
+      value: Git, Docker, AWS, PyTorch, Tensorflow, OpenCV, MySQL, MongoDB
+    - name: Operating Systems
+      value: Linux, Windows 7/8/10
 
 - title: Education
   type: time_table
@@ -17,7 +21,7 @@
       description:
         - Specialization in Computer Science and Engineering (CGPA - 8.75)
         - Awarded Gold medal for outstanding academic performance.
-        - Worked on Face Aging using Style Transfer thesis under guidance of Dr. Neeta Nain, sponsored by MeitY, Gov. of India.
+        - Worked on Face Ageing using Style Transfer thesis under guidance of Dr. Neeta Nain, sponsored by MeitY, Gov. of India.
 
     - title: Bachelors in Technology (B.Tech.)
       institution: Dr. Babasaheb Ambedkar Technological University, Lonere
@@ -49,9 +53,23 @@
 - title: Projects
   type: time_table
   contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
-      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
+    - title: Face Ageing using Style Transfer
+      year: 2020-2021
+      description: 
+        - A project under Khoj Apno Ki | Tracing Missing Children, sponsored by Meity, Govt. of India. 
+        - Proposed a method to synthesize images with age progression and rejuvenation effects based on given target style.
+        - Trained generative models using PyTorch and made comparative studies with baseline models.
+
+    - title: Text Summarizer
+      year: 2020-2021
+      description:
+          - Developed a web app to generate a short summary of textual input using Extractive algorithms using Python packages Flask, Numpy and NLTK
+
+    - title: Content Based Image Retrieval
+      year: 2019-2020
+      description:
+          - Created a web app using Python Flask framework to retieve images from database similar to image query (Query-by-image) based on color, texture and shape.
+          - Used OpenCV and Tensorflow to implement the model and MongoDB database to store image information.
 
 - title: Honors and Awards
   type: time_table
@@ -63,14 +81,12 @@
 - title: Academic Interests
   type: nested_list
   contents:
-    - title: Deep Learning
+    - title: Deep learning and Generative Adversarial Models (GAN)
       items: 
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
-      items:
-        - Description 1.
-        - Description 2.
+        - Studied ML and DL Algorithms 1. My academic journey has involved an in-depth study of various Machine Learning (ML) and Deep Learning (DL) algorithms. Explored both classical ML algorithms and cutting-edge DL technique.
+        - Project Experience 2. I have hands-on experience in Deep Learning, specifically in realm of GANs. Proficient in Python, PyTorch and Tensorflow. My recent project involved using GANs to address the complex task of Face Ageing. Through this project, I delved into the intricacies of GAN architectures and their applications in image transformation.
+        - Published Paper 3. I am proud to have published a paper on my Face Ageing project, titled **MuSTAT Face Ageing using Multi-Scale Target Age Style Transfer**.  This paper explores the challenges and innovations in using GANs for realistic face aging transformations. 
+        - Future Endeavors 4. Enthusiastic about contributing to the advancement of ML research. I'm also keen to explore interdisciplinary projects that combine computer vision and NLP for more comphrehensive AI solutions
 
 - title: Other Interests
   type: list
