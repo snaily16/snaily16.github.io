@@ -8,9 +8,11 @@
     - name: Programming Languages
       value: C++, Python, Java
     - name: Skills
-      value: Git, Docker, AWS, PyTorch, Tensorflow, OpenCV, MySQL, MongoDB
+      value: Git, Docker, AWS, Azure, PyTorch, Tensorflow, OpenCV, MySQL, MongoDB, Terraform
     - name: Operating Systems
       value: Linux, Windows 7/8/10
+    - name: ML Libraries
+      value: PyTorch, Tensorflow, Keras, Numpy, OpenCV, Scikit-learn, Pandas
 
 - title: Education
   type: time_table
@@ -50,6 +52,17 @@
         - Developed Physics Interactive Animation Creator, an interactive platform to create physics animations with minimal coding.
         - Responsible to create physics apparatus using Three.js library.
 
+- title: Publications
+  type: time_table
+  contents:
+      - title: MuSTAT Face Ageing using Multi-Scale Target Age Style Transfer
+        institution: CVIP, IIT Jammu
+        year: 2023
+        description:
+            - This work proposes a multi-scale target age-based style face ageing model using an encoder-decoder architecture to generate high-fidelity face images under ageing
+            - Proposed using skip connections with selective transfer units (STU) to select and modify the encoder feature and
+used style information gathered from a random image of the target age group to train the generator.
+
 - title: Projects
   type: time_table
   contents:
@@ -76,19 +89,22 @@
   contents:
     - year: 2021
       items: 
-        - Gold Medal in M.Tech.
+        - Gold Medal in M.Tech
+    - year: 2023
+      items:
+        - Best Paper Award for **MuSTAT Face Ageing using Multi-Scale Target Age Style Transfer** at CVIP, IIT Jammu.
 
 - title: Academic Interests
   type: nested_list
   contents:
     - title: Deep learning and Generative Adversarial Models (GAN)
       items: 
-        - Studied ML and DL Algorithms 1. My academic journey has involved an in-depth study of various Machine Learning (ML) and Deep Learning (DL) algorithms. Explored both classical ML algorithms and cutting-edge DL technique.
-        - Project Experience 2. I have hands-on experience in Deep Learning, specifically in realm of GANs. Proficient in Python, PyTorch and Tensorflow. My recent project involved using GANs to address the complex task of Face Ageing. Through this project, I delved into the intricacies of GAN architectures and their applications in image transformation.
-        - Published Paper 3. I am proud to have published a paper on my Face Ageing project, titled **MuSTAT Face Ageing using Multi-Scale Target Age Style Transfer**.  This paper explores the challenges and innovations in using GANs for realistic face aging transformations. 
-        - Future Endeavors 4. Enthusiastic about contributing to the advancement of ML research. I'm also keen to explore interdisciplinary projects that combine computer vision and NLP for more comphrehensive AI solutions
+        - My academic journey has involved an in-depth study of various Machine Learning (ML) and Deep Learning (DL) algorithms. Explored both classical ML algorithms and cutting-edge DL technique.
+        - I have hands-on experience in Deep Learning, specifically in realm of GANs. Proficient in Python, PyTorch and Tensorflow. My recent project involved using GANs to address the complex task of Face Ageing. Through this project, I delved into the intricacies of GAN architectures and their applications in image transformation.
+        - I am proud to have published a paper on my Face Ageing project, titled **MuSTAT Face Ageing using Multi-Scale Target Age Style Transfer**.  This paper explores the challenges and innovations in using GANs for realistic face aging transformations. 
+        - Enthusiastic about contributing to the advancement of ML research. I'm also keen to explore interdisciplinary projects that combine computer vision and NLP for more comphrehensive AI solutions
 
 - title: Other Interests
   type: list
   contents:
-    - <u>Hobbies:</u> Drawing, Reading novels, etc.
+    - <u>Hobbies:</u> Drawing, Reading novels, Chess, etc.
