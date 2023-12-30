@@ -5,11 +5,11 @@
       value: Snehal Gharat
     - name: Date of Birth
       value: 17th April 1997
-    - name: Programming Languages
+    - name: Languages
       value: C++, Python, Java
     - name: Skills
       value: Git, Docker, AWS, Azure, PyTorch, Tensorflow, OpenCV, MySQL, MongoDB, Terraform
-    - name: Operating Systems
+    - name: OS
       value: Linux, Windows 7/8/10
     - name: ML Libraries
       value: PyTorch, Tensorflow, Keras, Numpy, OpenCV, Scikit-learn, Pandas
@@ -38,12 +38,21 @@
   contents:
     - title: Software Developer Associate 
       institution: Halliburton, Bangalore
-      year: 2021 - Current
+      year: 2022 - Current
       description:
+        - Implemented Landmark Secrets Management (LSM) to automate the rotation of security credentials in AWS and Azure cloud environments
+        - Developed an error notification system using Python and NerdGraph GraphQL API of New Relic, deploying AWS Lambda and Azure Functions via Terraform.
         - Developed an automated customer onboarding system by integrating Okta API with Python and Bash scripting, significantly reducing the workload on the support team by 80%
+        - Actively participated in regular Scrum meetings, collaborating with cross-functional teams to troubleshoot and resolve challenges in a dynamic software development environment.
+
+    - title: Team Lead DS365.ai Support, Cloud Support Analyst II
+      institution: Halliburton, Bangalore
+      year: 2021 - 2022
+      description:
+        - Led a dynamic support team for the "DS365.ai" platform, ensuring high-quality customer interactions and issue resolution
+        - Developed and implemented new support strategies, including the creation of comprehensive knowledge base articles, reducing recurring inquiries by 30%.
         - Analysis of issues logged by end users, business team and working on incidents and severity issues
         - Designed and developed custom reports tailored to user issue analysis utilizing Salesforce Lightning Experience's reporting capabilities.
-        - Gained good understanding of AWS and Azure cloud services.
 
     - title: Eklaavya Summer Internship
       institution: Indian Institute of Technology, Bombay (IITB)
