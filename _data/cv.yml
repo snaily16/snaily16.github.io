@@ -60,8 +60,7 @@
         year: 2023
         description:
             - This work proposes a multi-scale target age-based style face ageing model using an encoder-decoder architecture to generate high-fidelity face images under ageing
-            - Proposed using skip connections with selective transfer units (STU) to select and modify the encoder feature and
-used style information gathered from a random image of the target age group to train the generator.
+            - Proposed using skip connections with selective transfer units (STU) to select and modify the encoder feature and used style information gathered from a random image of the target age group to train the generator.
 
 - title: Projects
   type: time_table
@@ -92,7 +91,7 @@ used style information gathered from a random image of the target age group to t
         - Gold Medal in M.Tech
     - year: 2023
       items:
-        - Best Paper Award for **MuSTAT Face Ageing using Multi-Scale Target Age Style Transfer** at CVIP, IIT Jammu.
+        - Best Paper Award for MuSTAT Face Ageing using Multi-Scale Target Age Style Transfer at CVIP, IIT Jammu.
 
 - title: Academic Interests
   type: nested_list
