@@ -3,17 +3,16 @@
 
   <!-- Head -->
   <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="refresh" content="3; url=/">    <!-- Metadata, OpenGraph and Schema.org -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page not found | Snehal R. Gharat</title>
+    <title>The Art of Concurrency | Snehal R. Gharat</title>
     <meta name="author" content="Snehal R. Gharat">
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here.">
+    <meta name="description" content="Unlock the power of concurrent programming in C, with practical examples using pthreads library">
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
 
@@ -39,7 +38,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="http://localhost:4000/404.html">
+    <link rel="canonical" href="http://localhost:4000/blog/2024/pthreads-concurrency/">
 
     <!-- Dark Mode -->
     
@@ -78,8 +77,8 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
-                <a class="nav-link" href="/blog/">blog</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="/blog/">blog<span class="sr-only">(current)</span></a>
               </li>
 
               <!-- Other pages -->
@@ -117,20 +116,138 @@
     <!-- Content -->
     <div class="container mt-5">
       
-        <!-- page.html -->
-        <div class="post">
+        <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please go back to the <a href="/">home page</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">The Art of Concurrency</h1>
+    <p class="post-meta">August 30, 2024</p>
+    <p class="post-tags">
+      <a href="/blog/2024"> <i class="fas fa-calendar fa-sm"></i> 2024 </a>
+        ·  
+        <a href="/blog/tag/c">
+          <i class="fas fa-hashtag fa-sm"></i> c</a>  
+          <a href="/blog/tag/code">
+          <i class="fas fa-hashtag fa-sm"></i> code</a>  
+          <a href="/blog/tag/os">
+          <i class="fas fa-hashtag fa-sm"></i> os</a>  
+          
+        ·  
+        <a href="/blog/category/code-for-fun">
+          <i class="fas fa-tag fa-sm"></i> code-for-fun</a>  
+          
 
-          </article>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    
+    <div id="markdown-content">
+      <p>Are you ready to unravel the mystery of threads? Not the kind you use to sew or weave, but the kind that makes your computer run multiple tasks at same time. Yeah, that kind! No yarns, threads, or needles required!
+In this post, we’ll dive into the world of pthreads in C, where we’ll learn how to create, manage, and synchronize threads to achieve concurrency and improve system performance. So, buckle up and get ready to thread your way through the world of computer science!</p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/threading/Cooking_multitasking.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+<p>Imagine you’re cooking dinner and have to prepare multiple dishes at once. Cooking one dish after the other would take a lot of time; instead, you prepare each dish simultaneously. You’re chopping vegetables while the rice is cooking, and then preparing rotis while the vegetables are sautéing. This is an example of concurrency from day-to-day life.</p>
+
+<blockquote>
+"Nothing is particularly hard if you divide it into small jobs." – Henry Ford
+</blockquote>
+<p>In concurrency, multiple tasks are executed simultaneously, improving the overall efficiency and productivity of the system. In today’s world of multi-core processors and increasingly complex software systems, concurrency has become a crucial aspect of programming. By harnessing the power of concurrency, developers can create faster, more efficient, and more scalable applications that take full advantage of modern hardware. However, concurrent programming can be a daunting task, especially for those new to the field.</p>
+
+<p>Let’s dive into the world of concurrent programming. One of the most popular ways to achieve concurrency in C programming is by using POSIX threads, also known as pthreads.</p>
+
+<h2 id="what-are-pthread">What are pthread?</h2>
+<p>POSIX threads, also known as pthreads, developed by IEEE, as a part of POSIX (Portable Operating System Interface) standard, are a set of APIs that allow developers to create multiple threads of execution within a single process. 
+POSIX threads were developed in 1990s to provide a standardized threading API, addressing lack of portability and efficiency in concurrent code. While there were existing threading APIs, they were not compatible, making it difficult to write portable code. Pthreads aimed to provide a standardized API for multiple platforms.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">pthreads.h</code> header file is the primary interface for POSIX threads. It provides a set of functions, macros, and types that enable developers to create, manage, and synchronize threads.</p>
+
+<h2 id="thread-operations">Thread Operations</h2>
+<p>In a POSIX threads environment, thread operations typically include -</p>
+
+<ol>
+  <li>Thread Creation: creating new threads within a process</li>
+  <li>Termination: terminating threads when they’re no longer needed</li>
+  <li>Synchronization: coordinating access to shared resources between threads</li>
+  <li>Scheduling: managing the execution of threads by the OS</li>
+  <li>Data management: managing shared data between threads</li>
+  <li>Process interaction: interacting with the parent process and other threads</li>
+</ol>
+
+<p>The pthreads.h header file defines a wide range of functions, including:</p>
+
+<ul>
+  <li>Thread creation and management functions <code class="language-plaintext highlighter-rouge">(e.g., pthread_create(), pthread_join()</code>)</li>
+  <li>Synchronization functions <code class="language-plaintext highlighter-rouge">(e.g., pthread_mutex_lock(), pthread_cond_wait())</code>
+</li>
+  <li>Thread attribute functions <code class="language-plaintext highlighter-rouge">(e.g., pthread_attr_init(), pthread_attr_setdetachstate())</code>
+</li>
+  <li>Thread-specific data functions <code class="language-plaintext highlighter-rouge">(e.g., pthread_setspecific(), pthread_getspecific())</code>
+</li>
+</ul>
+
+
+    </div>
+  </article>
+
+
+  
+    
+    <br>
+    <hr>
+    <br>
+    <ul class="list-disc pl-8"></ul>
+
+    <!-- Adds related posts to the end of an article -->
+    <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2>
+    <p class="mb-2">Here are some more articles you might like to read next:</p>
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2018/harness-the-power-of-gpu-and-tpu/">Harness the power of GPU and TPU</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2018/import-data-into-google-colaboratory/">Import Data into Google Colaboratory</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2018/is-deep-learning-useless-if-there-is-no-large-dataset-available-no/">Is deep learning useless if there is no large dataset available? NO!!!</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2019/what-why-and-which-activation-functions/">What, Why and Which?? Activation Functions</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/calcuate-pi-for-fun/">Beyond 3.14</a>
+  </li>
+
+</div>
 
       
     </div>
