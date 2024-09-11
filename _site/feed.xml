@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-02T23:02:03+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-11T16:34:23+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">The Art of Concurrency</title><link href="http://localhost:4000/blog/2024/pthreads-concurrency/" rel="alternate" type="text/html" title="The Art of Concurrency" /><published>2024-08-30T00:00:00+05:30</published><updated>2024-08-30T00:00:00+05:30</updated><id>http://localhost:4000/blog/2024/pthreads-concurrency</id><content type="html" xml:base="http://localhost:4000/blog/2024/pthreads-concurrency/"><![CDATA[<p>Are you ready to unravel the mystery of threads? Not the kind you use to sew or weave, but the kind that makes your computer run multiple tasks at same time. Yeah, that kind! No yarns, threads, or needles required!
-In this post, we’ll dive into the world of pthreads in C, where we’ll learn how to create, manage, and synchronize threads to achieve concurrency and improve system performance. So, buckle up and get ready to thread your way through the world of computer science!</p>
+In this post, we’ll dive into the world of pthreads in C, where we’ll learn how to create, manage, and synchronize threads to achieve concurrency and improve system performance. We’ll cover the basics of pthreads, exploring the best practices to follow and common pitfalls to avoid. So, buckle up and get ready to thread your way through the world of computer science!</p>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -45,14 +45,126 @@ POSIX threads were developed in 1990s to provide a standardized threading API, a
   <li>Process interaction: interacting with the parent process and other threads</li>
 </ol>
 
-<p>The pthreads.h header file defines a wide range of functions, including:</p>
+<p>The Pthread API contains around 100 functions. These functions can be grouped in four major groups:</p>
 
 <ul>
-  <li>Thread creation and management functions <code class="language-plaintext highlighter-rouge">(e.g., pthread_create(), pthread_join()</code>)</li>
+  <li>Thread management functions <code class="language-plaintext highlighter-rouge">(e.g., pthread_create(), pthread_join()</code>)</li>
   <li>Synchronization functions <code class="language-plaintext highlighter-rouge">(e.g., pthread_mutex_lock(), pthread_cond_wait())</code></li>
   <li>Thread attribute functions <code class="language-plaintext highlighter-rouge">(e.g., pthread_attr_init(), pthread_attr_setdetachstate())</code></li>
   <li>Thread-specific data functions <code class="language-plaintext highlighter-rouge">(e.g., pthread_setspecific(), pthread_getspecific())</code></li>
-</ul>]]></content><author><name></name></author><category term="code-for-fun" /><category term="c" /><category term="code" /><category term="os" /><summary type="html"><![CDATA[Unlock the power of concurrent programming in C, with practical examples using pthreads library]]></summary></entry><entry><title type="html">Beyond 3.14</title><link href="http://localhost:4000/blog/2023/calcuate-pi-for-fun/" rel="alternate" type="text/html" title="Beyond 3.14" /><published>2023-08-06T00:00:00+05:30</published><updated>2023-08-06T00:00:00+05:30</updated><id>http://localhost:4000/blog/2023/calcuate-pi-for-fun</id><content type="html" xml:base="http://localhost:4000/blog/2023/calcuate-pi-for-fun/"><![CDATA[<p>Hey there, fellow math and computer enthusiasts! Today, we’re diving into one of the most captivating and profound constants in mathematics - Pi (\(\pi\)). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let’s embark on a journey to unravel the mysteries of pi and discover different ways of calculating \(\pi\).</p>
+</ul>
+
+<h2 id="thread-management">Thread Management</h2>
+<p>When a program starts, it consists of a single, default thread, often referred to as the main thread. This thread is responsible for executing the main() function, which is the entry point of the program.
+To get thread ID for the newly created thread, we use the <code class="language-plaintext highlighter-rouge">pthread_self</code> function.</p>
+
+<h3 id="thread-creation-pthread_create">Thread Creation: pthread_create</h3>
+
+<p>To create a new thread, we use the <code class="language-plaintext highlighter-rouge">pthread_create</code> function.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kt">int</span> <span class="nf">pthread_create</span><span class="p">(</span><span class="n">pthread_t</span> <span class="o">*</span> <span class="kr">thread</span><span class="p">,</span> 
+                       <span class="k">const</span> <span class="n">pthread_attr_t</span> <span class="o">*</span> <span class="n">attr</span><span class="p">,</span>
+                       <span class="kt">void</span> <span class="o">*</span> <span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="p">),</span> 
+                       <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span>
+</code></pre></div></div>
+<p>Let’s break down each argument:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">thread</code>: a pointer to a <code class="language-plaintext highlighter-rouge">pthread_t</code> variable that will store thread ID.</li>
+  <li><code class="language-plaintext highlighter-rouge">attr</code>: a pointer to a <code class="language-plaintext highlighter-rouge">pthread_attr_t</code> structure that specifies thread attributes. (optional)</li>
+  <li><code class="language-plaintext highlighter-rouge">start_routine</code>: a pointer to function that the new thread will execute.</li>
+  <li><code class="language-plaintext highlighter-rouge">arg</code>: an argument to be passed to the <code class="language-plaintext highlighter-rouge">start_routine</code> function. It must be passed by reference as (void *) NULL</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">pthread_create</code> function returns zero on successful thread creation; otherwise, an error number shall be returned to indicate the error.</p>
+
+<h4 id="best-practices-for-thread-creation">Best Practices for Thread Creation</h4>
+<ol>
+  <li>Use meaningful thread names to identify threads, this makes debugging easier.</li>
+  <li>Use thread attributes to specify the thread’s scheduling policy, priority and other properties.</li>
+  <li>Pass arguments carefully to avoid data corruption and ensure thread safety.</li>
+</ol>
+
+<h3 id="thread-termination-pthread_exit">Thread Termination: pthread_exit</h3>
+
+<p>To terminate the calling thread, we use the <code class="language-plaintext highlighter-rouge">pthread_exit</code> function. It takes a single argument, <code class="language-plaintext highlighter-rouge">value_ptr</code>, which is a pointer to the exit status of the thread. This argument is optional, and if not provided, the thread exits with a default status.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">pthread_exit</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">value_ptr</span><span class="p">);</span>
+</code></pre></div></div>
+<p>This function allows thread to exit cleanly, realising any resources it may have allocated. While using the <code class="language-plaintext highlighter-rouge">pthread_exit</code>.</p>
+
+<h4 id="best-practices-for-thread-termination">Best Practices for Thread Termination</h4>
+<ol>
+  <li>Use <code class="language-plaintext highlighter-rouge">pthread_exit</code> instead of <code class="language-plaintext highlighter-rouge">return</code> to terminate the thread. This ensures that the thread exists cleanly and releases resources it may have allocated.</li>
+  <li>Pass on exit status to <code class="language-plaintext highlighter-rouge">pthread_exit</code> to provide information about the thread termination.</li>
+  <li>Avoid calling <code class="language-plaintext highlighter-rouge">pthread_exit</code> from signal handler to prevent unexpected behaviour.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">pthread_join</code> to wait for the thread to terminate and ensure that resources are released.</li>
+</ol>
+
+<h3 id="waiting-for-thread-termination-pthread_join">Waiting for Thread Termination: pthread_join</h3>
+<p>In addition to creating threads, it’s essential to manage their termination properly. One of the most critical aspects of thread termination is waiting for a thread to finish its execution. This is where <code class="language-plaintext highlighter-rouge">pthread_join</code> comes into play. When <code class="language-plaintext highlighter-rouge">pthread_join</code> is called the main program will block until the specified thread terminates.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">pthread_join</span><span class="p">(</span><span class="n">pthread_t</span> <span class="kr">thread</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">value_ptr</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Let’s break down each argument:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">thread</code>: a pointer to a <code class="language-plaintext highlighter-rouge">pthread_t</code> variable that will store thread ID.</li>
+  <li><code class="language-plaintext highlighter-rouge">value_ptr</code>: a pointer to a location where the thread’s return value will be stored.</li>
+</ul>
+
+<p>Once the thread finishes the execution, <code class="language-plaintext highlighter-rouge">pthread_join</code> will return the thread’s return value through the <code class="language-plaintext highlighter-rouge">value_ptr</code> argument. It allows you to synchornize the main program with the thread’s execution. This is particularly useful when the main program needs to wait for a thread to complete a task before proceeding.
+If a thread encounters an error, <code class="language-plaintext highlighter-rouge">pthread_join</code> can help you catch and handle the error properly.</p>
+
+<h4 id="best-practices-for-using-pthread_join">Best Practices for Using pthread_join</h4>
+<ol>
+  <li>Make it a habit to join threads to ensure proper resource cleanup and synchronization</li>
+  <li>Always pair <code class="language-plaintext highlighter-rouge">pthread_join</code> with <code class="language-plaintext highlighter-rouge">pthread_create</code> to ensure that threads are properly created and terminated.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">pthread_join</code> to catch and handle errors that may occur during thread execution.</li>
+</ol>
+
+<p>Here is an example code that demonstrates the best practices:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span><span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span><span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span>
+<span class="kt">void</span> <span class="o">*</span><span class="nf">thread_func</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">pthread_t</span> <span class="kr">thread</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">msg</span> <span class="o">=</span> <span class="s">"Hello, Thread!!!"</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">iret</span><span class="p">;</span>
+
+    <span class="c1">// Create a thread</span>
+    <span class="n">iret</span> <span class="o">=</span> <span class="n">pthread_create</span><span class="p">(</span> <span class="o">&amp;</span><span class="kr">thread</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">thread_func</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="n">msg</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">iret</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"Error - pthread_create() return code: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">iret</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"pthread_create for thread returns: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">iret</span><span class="p">);</span>
+    
+    <span class="c1">// Wait for the thread to finish</span>
+    <span class="kt">void</span> <span class="o">*</span><span class="n">retval</span><span class="p">;</span>
+    <span class="n">pthread_join</span><span class="p">(</span><span class="kr">thread</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">retval</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Thread finished with return value %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">retval</span><span class="p">);</span>
+    
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="o">*</span><span class="nf">thread_func</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">){</span>
+    <span class="c1">// Get the argument passed to the thread</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">message</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">arg</span><span class="p">;</span>
+
+    <span class="c1">// Get the thread ID</span>
+    <span class="n">pthread_t</span> <span class="n">tid</span> <span class="o">=</span> <span class="n">pthread_self</span><span class="p">();</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Thread %ld started with message: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">tid</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+    
+    <span class="c1">// Return a value to indicate success</span>
+    <span class="n">pthread_exit</span><span class="p">((</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>To compile this program using GCC, we need to use the <code class="language-plaintext highlighter-rouge">-pthread</code> flag. This flag tells the compiler to link against the Pthread library. If you’re using a different C compiler, you’ll need to use a different (but equivalent) flag to link against the Pthread library. For example, with Clang compiler, we use the <code class="language-plaintext highlighter-rouge">-lpthread</code> flag.</p>
+
+<p>Below is the example of how we can compile the above code (let’s name it thread_basic.c) in GCC:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc -o thread_basic thread_basic.c -pthread
+</code></pre></div></div>]]></content><author><name></name></author><category term="code-for-fun" /><category term="c" /><category term="code" /><category term="os" /><summary type="html"><![CDATA[Unlock the power of concurrent programming in C, with practical examples using pthreads library]]></summary></entry><entry><title type="html">Beyond 3.14</title><link href="http://localhost:4000/blog/2023/calcuate-pi-for-fun/" rel="alternate" type="text/html" title="Beyond 3.14" /><published>2023-08-06T00:00:00+05:30</published><updated>2023-08-06T00:00:00+05:30</updated><id>http://localhost:4000/blog/2023/calcuate-pi-for-fun</id><content type="html" xml:base="http://localhost:4000/blog/2023/calcuate-pi-for-fun/"><![CDATA[<p>Hey there, fellow math and computer enthusiasts! Today, we’re diving into one of the most captivating and profound constants in mathematics - Pi (\(\pi\)). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let’s embark on a journey to unravel the mysteries of pi and discover different ways of calculating \(\pi\).</p>
 
 <p>You may have wondered how people compute the value of \(\pi\) accurately, and how do they know that they are accurate. Then you are at right place, today we will unravel the mysteries of convergence and error metrics.</p>
 
@@ -285,346 +397,4 @@ Every cell interacts with its eight neighbours, which are the cells that are hor
 
 <p>One of the most astonishing aspects of Conway’s Game of Life is its universality, specifically its ability to simulate any Turing machine. A Turing machine is a theoretical model of computation that can solve any problem that can be computed algorithmically. By constructing specific configurations within the game, it is possible to create structures that mimic the behavior of a Turing machine, effectively transforming the Game of Life into a computational device capable of solving complex problems.</p>
 
-<p>In summary, the Game of Life embodies both complexity and universality. Its simple rules give rise to intricate and visually stunning patterns, demonstrating the inherent complexity that can emerge from simplicity. Moreover, its ability to simulate any other computational system showcases its universality, illustrating the vast computational power that can be harnessed within this seemingly simple cellular automaton.</p>]]></content><author><name></name></author><category term="math-for-fun" /><category term="javascript" /><category term="game-of-life" /><category term="code" /><category term="math" /><summary type="html"><![CDATA[Conway's Game of Life implementation using p5.js]]></summary></entry><entry><title type="html">a post with custom blockquotes</title><link href="http://localhost:4000/blog/2023/custom-blockquotes/" rel="alternate" type="text/html" title="a post with custom blockquotes" /><published>2023-05-13T01:23:00+05:30</published><updated>2023-05-13T01:23:00+05:30</updated><id>http://localhost:4000/blog/2023/custom-blockquotes</id><content type="html" xml:base="http://localhost:4000/blog/2023/custom-blockquotes/"><![CDATA[<p>This post shows how to add custom styles for blockquotes. Based on <a href="https://github.com/sighingnow/jekyll-gitbook">jekyll-gitbook</a> implementation.</p>
-
-<p>We decided to support the same custom blockquotes as in <a href="https://sighingnow.github.io/jekyll-gitbook/jekyll/2022-06-30-tips_warnings_dangers.html">jekyll-gitbook</a>, which are also found in a lot of other sites’ styles. The styles definitions can be found on the <a href="https://github.com/alshedivat/al-folio/blob/master/_sass/_base.scss">_base.scss</a> file, more specifically:</p>
-
-<div class="language-scss highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Tips, warnings, and dangers */</span>
-<span class="nc">.post</span> <span class="nc">.post-content</span> <span class="nt">blockquote</span> <span class="p">{</span>
-    <span class="k">&amp;</span><span class="nc">.block-tip</span> <span class="p">{</span>
-    <span class="nl">border-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-tip-block</span><span class="p">);</span>
-    <span class="nl">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-tip-block-bg</span><span class="p">);</span>
-
-    <span class="nt">p</span> <span class="p">{</span>
-      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-tip-block-text</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
-      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-tip-block-title</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="k">&amp;</span><span class="nc">.block-warning</span> <span class="p">{</span>
-    <span class="nl">border-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-warning-block</span><span class="p">);</span>
-    <span class="nl">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-warning-block-bg</span><span class="p">);</span>
-
-    <span class="nt">p</span> <span class="p">{</span>
-      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-warning-block-text</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
-      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-warning-block-title</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="k">&amp;</span><span class="nc">.block-danger</span> <span class="p">{</span>
-    <span class="nl">border-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-danger-block</span><span class="p">);</span>
-    <span class="nl">background-color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-danger-block-bg</span><span class="p">);</span>
-
-    <span class="nt">p</span> <span class="p">{</span>
-      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-danger-block-text</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span>
-      <span class="nl">color</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">global-danger-block-title</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p>A regular blockquote can be used as following:</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gt">&gt; This is a regular blockquote</span>
-<span class="gt">&gt; and it can be used as usual</span>
-</code></pre></div></div>
-
-<blockquote>
-  <p>This is a regular blockquote
-and it can be used as usual</p>
-</blockquote>
-
-<p>These custom styles can be used by adding the specific class to the blockquote, as follows:</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gt">&gt; ##### TIP</span>
-<span class="gt">&gt;</span>
-<span class="gt">&gt; A tip can be used when you want to give advice</span>
-<span class="gt">&gt; related to a certain content.</span>
-{: .block-tip }
-</code></pre></div></div>
-
-<blockquote class="block-tip">
-  <h5 id="tip">TIP</h5>
-
-  <p>A tip can be used when you want to give advice
-related to a certain content.</p>
-</blockquote>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gt">&gt; ##### WARNING</span>
-<span class="gt">&gt;</span>
-<span class="gt">&gt; This is a warning, and thus should</span>
-<span class="gt">&gt; be used when you want to warn the user</span>
-{: .block-warning }
-</code></pre></div></div>
-
-<blockquote class="block-warning">
-  <h5 id="warning">WARNING</h5>
-
-  <p>This is a warning, and thus should
-be used when you want to warn the user</p>
-</blockquote>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gt">&gt; ##### DANGER</span>
-<span class="gt">&gt;</span>
-<span class="gt">&gt; This is a danger zone, and thus should</span>
-<span class="gt">&gt; be used carefully</span>
-{: .block-danger }
-</code></pre></div></div>
-
-<blockquote class="block-danger">
-  <h5 id="danger">DANGER</h5>
-
-  <p>This is a danger zone, and thus should
-be used carefully</p>
-</blockquote>]]></content><author><name></name></author><category term="sample-posts" /><category term="blockquotes" /><summary type="html"><![CDATA[an example of a blog post with custom blockquotes]]></summary></entry><entry><title type="html">a post with table of contents on a sidebar</title><link href="http://localhost:4000/blog/2023/sidebar-table-of-contents/" rel="alternate" type="text/html" title="a post with table of contents on a sidebar" /><published>2023-04-25T19:44:00+05:30</published><updated>2023-04-25T19:44:00+05:30</updated><id>http://localhost:4000/blog/2023/sidebar-table-of-contents</id><content type="html" xml:base="http://localhost:4000/blog/2023/sidebar-table-of-contents/"><![CDATA[<p>This post shows how to add a table of contents as a sidebar.</p>
-
-<h2 id="adding-a-table-of-contents">Adding a Table of Contents</h2>
-
-<p>To add a table of contents to a post as a sidebar, simply add</p>
-<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">toc</span><span class="pi">:</span>
-  <span class="na">sidebar</span><span class="pi">:</span> <span class="s">left</span>
-</code></pre></div></div>
-<p>to the front matter of the post. The table of contents will be automatically generated from the headings in the post. If you wish to display the sidebar to the right, simply change <code class="language-plaintext highlighter-rouge">left</code> to <code class="language-plaintext highlighter-rouge">right</code>.</p>
-
-<h3 id="example-of-sub-heading-1">Example of Sub-Heading 1</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h3 id="example-of-another-sub-heading-1">Example of another Sub-Heading 1</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h2 data-toc-text="Customizing" id="customizing-your-table-of-contents">Customizing Your Table of Contents</h2>
-
-<p>If you want to learn more about how to customize the table of contents of your sidebar, you can check the <a href="https://afeld.github.io/bootstrap-toc/">bootstrap-toc</a> documentation. Notice that you can even customize the text of the heading that will be displayed on the sidebar.</p>
-
-<h3 id="example-of-sub-heading-2">Example of Sub-Heading 2</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h3 id="example-of-another-sub-heading-2">Example of another Sub-Heading 2</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>]]></content><author><name></name></author><category term="sample-posts" /><category term="toc" /><category term="sidebar" /><summary type="html"><![CDATA[an example of a blog post with table of contents on a sidebar]]></summary></entry><entry><title type="html">a post with audios</title><link href="http://localhost:4000/blog/2023/audios/" rel="alternate" type="text/html" title="a post with audios" /><published>2023-04-25T15:55:00+05:30</published><updated>2023-04-25T15:55:00+05:30</updated><id>http://localhost:4000/blog/2023/audios</id><content type="html" xml:base="http://localhost:4000/blog/2023/audios/"><![CDATA[<p>This is an example post with audios. It supports local audio files.</p>
-
-<div class="row mt-3">
-    <div class="col-sm mt-3 mt-md-0">
-        <figure>
-
-  <audio src="/assets/audio/epicaly-short-113909.mp3" controls="" />
-
-</figure>
-
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        <figure>
-
-  <audio src="https://cdn.pixabay.com/download/audio/2022/06/25/audio_69a61cd6d6.mp3" controls="" />
-
-</figure>
-
-    </div>
-</div>
-<div class="caption">
-    A simple, elegant caption looks good between video rows, after each row, or doesn't have to be there at all.
-</div>]]></content><author><name></name></author><category term="sample-posts" /><category term="including" /><category term="audios" /><summary type="html"><![CDATA[this is what included audios could look like]]></summary></entry><entry><title type="html">a post with videos</title><link href="http://localhost:4000/blog/2023/videos/" rel="alternate" type="text/html" title="a post with videos" /><published>2023-04-25T02:31:00+05:30</published><updated>2023-04-25T02:31:00+05:30</updated><id>http://localhost:4000/blog/2023/videos</id><content type="html" xml:base="http://localhost:4000/blog/2023/videos/"><![CDATA[<p>This is an example post with videos. It supports local video files.</p>
-
-<div class="row mt-3">
-    <div class="col-sm mt-3 mt-md-0">
-        
-
-<figure>
-
-  
-
-  <video src="/assets/video/pexels-engin-akyurt-6069112-960x540-30fps.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls="" />
-
-  
-
-</figure>
-
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        
-
-<figure>
-
-  
-
-  <video src="/assets/video/pexels-engin-akyurt-6069112-960x540-30fps.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" controls="" />
-
-  
-
-</figure>
-
-    </div>
-</div>
-<div class="caption">
-    A simple, elegant caption looks good between video rows, after each row, or doesn't have to be there at all.
-</div>
-
-<p>It does also support embedding videos from different sources. Here are some examples:</p>
-
-<div class="row mt-3">
-    <div class="col-sm mt-3 mt-md-0">
-        
-
-<figure>
-
-  
-
-  <iframe src="https://www.youtube.com/embed/jNQXAC9IVRw" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto" />
-
-  
-
-</figure>
-
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        
-
-<figure>
-
-  
-
-  <iframe src="https://player.vimeo.com/video/524933864?h=1ac4fd9fb4&amp;title=0&amp;byline=0&amp;portrait=0" class="img-fluid rounded z-depth-1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" width="auto" height="auto" />
-
-  
-
-</figure>
-
-    </div>
-</div>]]></content><author><name></name></author><category term="sample-posts" /><category term="including" /><category term="videos" /><summary type="html"><![CDATA[this is what included videos could look like]]></summary></entry><entry><title type="html">displaying beautiful tables with Bootstrap Tables</title><link href="http://localhost:4000/blog/2023/tables/" rel="alternate" type="text/html" title="displaying beautiful tables with Bootstrap Tables" /><published>2023-03-21T00:07:00+05:30</published><updated>2023-03-21T00:07:00+05:30</updated><id>http://localhost:4000/blog/2023/tables</id><content type="html" xml:base="http://localhost:4000/blog/2023/tables/"><![CDATA[<p>Using markdown to display tables is easy. Just use the following syntax:</p>
-
-<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| Left aligned | Center aligned | Right aligned |
-| :----------- | :------------: | ------------: |
-| Left 1       | center 1       | right 1       |
-| Left 2       | center 2       | right 2       |
-| Left 3       | center 3       | right 3       |
-</code></pre></div></div>
-
-<p>That will generate:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Left aligned</th>
-      <th style="text-align: center">Center aligned</th>
-      <th style="text-align: right">Right aligned</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">Left 1</td>
-      <td style="text-align: center">center 1</td>
-      <td style="text-align: right">right 1</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Left 2</td>
-      <td style="text-align: center">center 2</td>
-      <td style="text-align: right">right 2</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Left 3</td>
-      <td style="text-align: center">center 3</td>
-      <td style="text-align: right">right 3</td>
-    </tr>
-  </tbody>
-</table>
-
-<p></p>
-
-<p>It is also possible to use HTML to display tables. For example, the following HTML code will display a table with <a href="https://bootstrap-table.com/">Bootstrap Table</a>, loaded from a JSON file:</p>
-
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table</span>
-  <span class="na">id=</span><span class="s">"table"</span>
-  <span class="na">data-toggle=</span><span class="s">"table"</span>
-  <span class="na">data-url=</span><span class="s">"{{ '/assets/json/table_data.json' | relative_url }}"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;thead&gt;</span>
-    <span class="nt">&lt;tr&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"id"</span><span class="nt">&gt;</span>ID<span class="nt">&lt;/th&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"name"</span><span class="nt">&gt;</span>Item Name<span class="nt">&lt;/th&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"price"</span><span class="nt">&gt;</span>Item Price<span class="nt">&lt;/th&gt;</span>
-    <span class="nt">&lt;/tr&gt;</span>
-  <span class="nt">&lt;/thead&gt;</span>
-<span class="nt">&lt;/table&gt;</span>
-</code></pre></div></div>
-
-<table data-toggle="table" data-url="/assets/json/table_data.json">
-  <thead>
-    <tr>
-      <th data-field="id">ID</th>
-      <th data-field="name">Item Name</th>
-      <th data-field="price">Item Price</th>
-    </tr>
-  </thead>
-</table>
-
-<p></p>
-
-<p>By using <a href="https://bootstrap-table.com/">Bootstrap Table</a> it is possible to create pretty complex tables, with pagination, search, and more. For example, the following HTML code will display a table, loaded from a JSON file, with pagination, search, checkboxes, and header/content alignment. For more information, check the <a href="https://examples.bootstrap-table.com/index.html">documentation</a>.</p>
-
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table</span>
-  <span class="na">data-click-to-select=</span><span class="s">"true"</span>
-  <span class="na">data-height=</span><span class="s">"460"</span>
-  <span class="na">data-pagination=</span><span class="s">"true"</span>
-  <span class="na">data-search=</span><span class="s">"true"</span>
-  <span class="na">data-toggle=</span><span class="s">"table"</span>
-  <span class="na">data-url=</span><span class="s">"{{ '/assets/json/table_data.json' | relative_url }}"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;thead&gt;</span>
-    <span class="nt">&lt;tr&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">data-checkbox=</span><span class="s">"true"</span><span class="nt">&gt;&lt;/th&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"id"</span> <span class="na">data-halign=</span><span class="s">"left"</span> <span class="na">data-align=</span><span class="s">"center"</span> <span class="na">data-sortable=</span><span class="s">"true"</span><span class="nt">&gt;</span>ID<span class="nt">&lt;/th&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"name"</span> <span class="na">data-halign=</span><span class="s">"center"</span> <span class="na">data-align=</span><span class="s">"right"</span> <span class="na">data-sortable=</span><span class="s">"true"</span><span class="nt">&gt;</span>Item Name<span class="nt">&lt;/th&gt;</span>
-      <span class="nt">&lt;th</span> <span class="na">data-field=</span><span class="s">"price"</span> <span class="na">data-halign=</span><span class="s">"right"</span> <span class="na">data-align=</span><span class="s">"left"</span> <span class="na">data-sortable=</span><span class="s">"true"</span><span class="nt">&gt;</span>Item Price<span class="nt">&lt;/th&gt;</span>
-    <span class="nt">&lt;/tr&gt;</span>
-  <span class="nt">&lt;/thead&gt;</span>
-<span class="nt">&lt;/table&gt;</span>
-</code></pre></div></div>
-
-<table data-click-to-select="true" data-height="460" data-pagination="true" data-search="true" data-toggle="table" data-url="/assets/json/table_data.json">
-  <thead>
-    <tr>
-      <th data-checkbox="true"></th>
-      <th data-field="id" data-halign="left" data-align="center" data-sortable="true">ID</th>
-      <th data-field="name" data-halign="center" data-align="right" data-sortable="true">Item Name</th>
-      <th data-field="price" data-halign="right" data-align="left" data-sortable="true">Item Price</th>
-    </tr>
-  </thead>
-</table>]]></content><author><name></name></author><category term="sample-posts" /><summary type="html"><![CDATA[an example of how to use Bootstrap Tables]]></summary></entry><entry><title type="html">a post with table of contents</title><link href="http://localhost:4000/blog/2023/table-of-contents/" rel="alternate" type="text/html" title="a post with table of contents" /><published>2023-03-20T21:29:00+05:30</published><updated>2023-03-20T21:29:00+05:30</updated><id>http://localhost:4000/blog/2023/table-of-contents</id><content type="html" xml:base="http://localhost:4000/blog/2023/table-of-contents/"><![CDATA[<p>This post shows how to add a table of contents in the beginning of the post.</p>
-
-<h2 id="adding-a-table-of-contents">Adding a Table of Contents</h2>
-
-<p>To add a table of contents to a post, simply add</p>
-<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">toc</span><span class="pi">:</span>
-  <span class="na">beginning</span><span class="pi">:</span> <span class="kc">true</span>
-</code></pre></div></div>
-<p>to the front matter of the post. The table of contents will be automatically generated from the headings in the post.</p>
-
-<h3 id="example-of-sub-heading-1">Example of Sub-Heading 1</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h3 id="example-of-another-sub-heading-1">Example of another Sub-Heading 1</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h2 id="table-of-contents-options">Table of Contents Options</h2>
-
-<p>If you want to learn more about how to customize the table of contents, you can check the <a href="https://github.com/toshimaru/jekyll-toc">jekyll-toc</a> repository.</p>
-
-<h3 id="example-of-sub-heading-2">Example of Sub-Heading 2</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h3 id="example-of-another-sub-heading-2">Example of another Sub-Heading 2</h3>
-
-<p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>]]></content><author><name></name></author><category term="sample-posts" /><category term="toc" /><summary type="html"><![CDATA[an example of a blog post with table of contents]]></summary></entry><entry><title type="html">a post with giscus comments</title><link href="http://localhost:4000/blog/2022/giscus-comments/" rel="alternate" type="text/html" title="a post with giscus comments" /><published>2022-12-10T21:29:00+05:30</published><updated>2022-12-10T21:29:00+05:30</updated><id>http://localhost:4000/blog/2022/giscus-comments</id><content type="html" xml:base="http://localhost:4000/blog/2022/giscus-comments/"><![CDATA[<p>This post shows how to add GISCUS comments.</p>]]></content><author><name></name></author><category term="sample-posts" /><category term="external-services" /><summary type="html"><![CDATA[an example of a blog post with giscus comments]]></summary></entry></feed>
+<p>In summary, the Game of Life embodies both complexity and universality. Its simple rules give rise to intricate and visually stunning patterns, demonstrating the inherent complexity that can emerge from simplicity. Moreover, its ability to simulate any other computational system showcases its universality, illustrating the vast computational power that can be harnessed within this seemingly simple cellular automaton.</p>]]></content><author><name></name></author><category term="math-for-fun" /><category term="javascript" /><category term="game-of-life" /><category term="code" /><category term="math" /><summary type="html"><![CDATA[Conway's Game of Life implementation using p5.js]]></summary></entry><entry><title type="html">What, Why and Which?? Activation Functions</title><link href="http://localhost:4000/blog/2019/what-why-and-which-activation-functions/" rel="alternate" type="text/html" title="What, Why and Which?? Activation Functions" /><published>2019-04-15T01:11:05+05:30</published><updated>2019-04-15T01:11:05+05:30</updated><id>http://localhost:4000/blog/2019/what-why-and-which-activation-functions</id><content type="html" xml:base="http://localhost:4000/blog/2019/what-why-and-which-activation-functions/"><![CDATA[]]></content><author><name></name></author></entry><entry><title type="html">Is deep learning useless if there is no large dataset available? NO!!!</title><link href="http://localhost:4000/blog/2018/is-deep-learning-useless-if-there-is-no-large-dataset-available-no/" rel="alternate" type="text/html" title="Is deep learning useless if there is no large dataset available? NO!!!" /><published>2018-12-05T00:32:40+05:30</published><updated>2018-12-05T00:32:40+05:30</updated><id>http://localhost:4000/blog/2018/is-deep-learning-useless-if-there-is-no-large-dataset-available-no</id><content type="html" xml:base="http://localhost:4000/blog/2018/is-deep-learning-useless-if-there-is-no-large-dataset-available-no/"><![CDATA[]]></content><author><name></name></author></entry><entry><title type="html">Import Data into Google Colaboratory</title><link href="http://localhost:4000/blog/2018/import-data-into-google-colaboratory/" rel="alternate" type="text/html" title="Import Data into Google Colaboratory" /><published>2018-10-13T22:40:34+05:30</published><updated>2018-10-13T22:40:34+05:30</updated><id>http://localhost:4000/blog/2018/import-data-into-google-colaboratory</id><content type="html" xml:base="http://localhost:4000/blog/2018/import-data-into-google-colaboratory/"><![CDATA[]]></content><author><name></name></author></entry><entry><title type="html">Harness the power of GPU and TPU</title><link href="http://localhost:4000/blog/2018/harness-the-power-of-gpu-and-tpu/" rel="alternate" type="text/html" title="Harness the power of GPU and TPU" /><published>2018-10-09T21:09:02+05:30</published><updated>2018-10-09T21:09:02+05:30</updated><id>http://localhost:4000/blog/2018/harness-the-power-of-gpu-and-tpu</id><content type="html" xml:base="http://localhost:4000/blog/2018/harness-the-power-of-gpu-and-tpu/"><![CDATA[]]></content><author><name></name></author></entry></feed>
