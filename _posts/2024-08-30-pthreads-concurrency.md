@@ -8,6 +8,8 @@ categories: code-for-fun
 toc:
 ---
 
+Hey there, fellow coders!
+
 Are you ready to unravel the mystery of threads? Not the kind you use to sew or weave, but the kind that makes your computer run multiple tasks at same time. Yeah, that kind! No yarns, threads, or needles required!
 In this post, we'll dive into the world of pthreads in C, where we'll learn how to create, manage, and synchronize threads to achieve concurrency and improve system performance. We'll cover the basics of pthreads, exploring the best practices to follow and common pitfalls to avoid. So, buckle up and get ready to thread your way through the world of computer science!
 
@@ -156,3 +158,137 @@ Below is the example of how we can compile the above code (let's name it thread\
 ```
 gcc -o thread_basic thread_basic.c -pthread
 ```
+
+## Thread Synchronization
+
+When working with pthreads, synchronization is key to ensuring that your threads play nicely together. It is curcial to ensure that threads access shared resources safely and efficiently. Pthreads provide a range of synchronization functions that allow threads to coordinate their actions and avoid race conditions.
+
+Types of Synchronization Functions:
+1. Mutexes (Mutual Exclusion): Allow only one thread to access a shared resource at a time.
+2. Condition Variables: Allow threads to wait for a specific condition to occur before proceeding.
+3. Semaphores: Allow a limited number of threads to access a shared resource.
+4. Barriers: Allow multiple threads to wait until all threads have reached a specific point.
+
+To illustrate the concept of synchronization functions, let's consider the earlier example of cooking dinner, but lets add multiple chefs.
+
+### Problem Statement: The Dinner Party Story
+
+Imagine a busy kitchen where multiple chefs (threads) are working together to prepare a multi-course dinner for a large party. The kitchen has limited resources, such as ovens, stoves and utensils, which need to be shared safely among the chefs. 
+
+### Example 1: Critical Section Problem with Mutexes
+
+Two chefs Alex and Luke, need to access the oven to bake different dishes. Without synchronization, both chefs might try to access the oven simultaneously, leading to conflicts and potentially ruining the dishes. To avoid this problem, the chefs use a mutex lock to synchronize the access to the oven.
+
+A mutex (short for "mutual exclusion") is a synchronization primitive that allows only one thread to access a shared resource at a time. In this example we'll use the `pthread_mutex_lock` function to lock the mutex, ensuring that only one chef can access the oven at a time.
+
+#### Declaration: 
+```c
+int pthread_mutex_lock(pthread_mutex_t *mutex);
+int pthread_mutex_trylock(pthread_mutex_t *mutex);
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+```
+
+`pthread_mutex_lock` locks the mutex specified by varibale "mutex". If the mutex is already locked, the calling thread will block until the mutex is unlocked by `pthread_mutex_unlock`. 
+The `pthread_mutex_trylock` is similar to `pthread_mutex_lock`, except that if the mutex object referenced by mutex is currently locked, instead of blocking the thread, it return immediately.
+
+The `pthread_mutex_lock` and `pthread_mutex_unlock` will returns 0 on success and error code on failure. The `pthread_mutex_trylock` will return 0 if a lock on the mutex object referenced by mutex is acquired, otherwise, and error code.
+
+#### The Code:
+Here is the code snippet that demonstrates how the chefs use a mutex lock to synchronize their actions:
+
+```c
+pthread_mutex_t oven_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+void* Chef1(void* arg){
+    pthread_mutex_lock(&oven_mutex);
+    // Bake dish 1
+    printf("Chef 1 is baking a cake... \n");
+    pthread_mutex_unlock(&oven_mutex);
+    return NULL;
+}
+
+void* Chef2(void* arg){
+    pthread_mutex_lock(&oven_mutex);
+    // Bake dish 2
+    printf("Chef 2 is baking a pizza... \n");
+    pthread_mutex_unlock(&oven_mutex);
+    return NULL;
+}
+```
+#### How it Works: 
+- The mutex `oven_mutex` is shared by Chef1 and Chef2.
+- They create their threads and start executing their respective thread functions. When Chef1 tries to access the oven, it locks the mutex using `pthread_mutex_lock`.
+- Once the mutexis locked, Chef1 enters the critical section and bakes the cake.
+- Meanwhile, if Chef2 also access the oven and see the mutex in locked state, it will block until the mutex is unlocked by Chef1. 
+- After baking the cake, Chef1 unlocks the mutex using `pthread_mutex_unlock`.
+- And similarly, chef2 locks the mutex, bakes the pizza and unlocks the mutex. 
+
+By using a mutex lock, the chefs ensure that only one of them can access the oven at a time, preventing conflictst and ensuring that each dish is prepared perfectly.
+
+### Example 2: Producer-Consumer Problem with Condition Variables
+
+Now, one of your chef, let's say Claire, is responsible for preparing ingredients, while another chef, Phil, needs to use those ingredients to prepare a dish. 
+Without synchronization, Phil (consumer) might try to use the ingredients before Claire (producer) has finished preparing them, reuslting in a dish that is incomplete or incorrect. For instance, Claire might be preparing a sauce, while Phil tries to use it before it's ready, leading to a culinary disaster.
+
+To avoid this problem, the chefs use a condition variable to synchronize their actions. A condition variable is a synchronization primitive that allows threads to wait until a specific condition is met. In this example we'll use the `pthread_cond_wait` and `pthread_cond_signal` functions to implement the producer-consumer synchronization.
+
+#### Declaration:
+
+```c
+// wait on a condition
+int pthread_cond_wait(pthread_cond_t *cond, pthread_mutex_t *mutex);
+int pthread_cond_timedwait(pthread_cond_t *cond, 
+                           pthread_mutex_t *mutex, const struct timespec *abstime);
+
+// signal or broadcast a condition
+int pthread_cond_signal(pthread_cond_t *cond);
+int pthread_cond_broadcast(pthread_cond_t *cond);
+```
+
+1. `pthread_cond_wait` and `pthread_cond_timedwait()`:
+- Releases the mutex specified by `mutex` and waits until the condition varibale `cond` is signaled.
+- They are called with mutex locked by the calling thread.
+- Returns 0 on success, or an error code on failure
+- The `pthread_cond_timedwait()` function is the same as `pthread_cond_wait()` except that an error is returned if the absolute time specified by abstime passes before the condition cond is signaled or broadcasted, or if the absolute time specified by abstime has already been passed at the time of the call.
+
+2. `pthread_cond_signal` and `pthread_cond_broadcast`:
+- Signals the condition variable `cond`, waking up one or more threads that are waiting on it.
+- Returns 0 on success, or an error code on failure
+- The `pthread_cond_signal` wakes up at least one of the thread that are waiting on `cond`, whereas the `pthread_cond_broadcast` wakes up all the threads that are waiting.
+- There is no effect for these functions if there are no threads currently blocked on `cond`.
+
+#### The Code:
+Here is the code snippet that demonstrates how the chefs use a condition variable to synchronize their actions:
+
+```c
+pthread_mutex_t sauce_mutex;
+pthread_cond_t sauce_cond;
+
+int sauce_ready = 0;
+
+// Producer: Claire
+void Chef_Producer(void *arg){
+    pthread_mutex_lock(&sauce_mutex);
+    // Prepare the sauce
+    sauce_ready = 1;
+    pthread_cond_signal(&sauce_cond);
+    pthread_mutex_unlock(&sauce_mutex);
+    return NULL;
+}
+
+// Consumer: Phil
+void Chef_Consumer(void *arg){
+    pthread_mutex_lock(&sauce_mutex);
+    while (sauce_ready == 0){
+        pthread_cond_wait(&sauce_cond, &sauce_mutex);
+    }
+    // Use the sauce to prepare the dish
+    printf("Chef Phil is preparing the dish...\n");
+    sauce_ready = 0;
+    pthread_mutex_unlock(&sauce_mutex);
+    return NULL;
+}
+```
+
+#### How it Works:
+

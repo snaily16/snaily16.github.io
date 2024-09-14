@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-11T16:34:23+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">The Art of Concurrency</title><link href="http://localhost:4000/blog/2024/pthreads-concurrency/" rel="alternate" type="text/html" title="The Art of Concurrency" /><published>2024-08-30T00:00:00+05:30</published><updated>2024-08-30T00:00:00+05:30</updated><id>http://localhost:4000/blog/2024/pthreads-concurrency</id><content type="html" xml:base="http://localhost:4000/blog/2024/pthreads-concurrency/"><![CDATA[<p>Are you ready to unravel the mystery of threads? Not the kind you use to sew or weave, but the kind that makes your computer run multiple tasks at same time. Yeah, that kind! No yarns, threads, or needles required!
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-13T23:21:44+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">The Art of Concurrency</title><link href="http://localhost:4000/blog/2024/pthreads-concurrency/" rel="alternate" type="text/html" title="The Art of Concurrency" /><published>2024-08-30T00:00:00+05:30</published><updated>2024-08-30T00:00:00+05:30</updated><id>http://localhost:4000/blog/2024/pthreads-concurrency</id><content type="html" xml:base="http://localhost:4000/blog/2024/pthreads-concurrency/"><![CDATA[<p>Hey there, fellow coders!</p>
+
+<p>Are you ready to unravel the mystery of threads? Not the kind you use to sew or weave, but the kind that makes your computer run multiple tasks at same time. Yeah, that kind! No yarns, threads, or needles required!
 In this post, we’ll dive into the world of pthreads in C, where we’ll learn how to create, manage, and synchronize threads to achieve concurrency and improve system performance. We’ll cover the basics of pthreads, exploring the best practices to follow and common pitfalls to avoid. So, buckle up and get ready to thread your way through the world of computer science!</p>
 
 <div class="row mt-3">
@@ -164,7 +166,147 @@ If a thread encounters an error, <code class="language-plaintext highlighter-rou
 
 <p>Below is the example of how we can compile the above code (let’s name it thread_basic.c) in GCC:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc -o thread_basic thread_basic.c -pthread
-</code></pre></div></div>]]></content><author><name></name></author><category term="code-for-fun" /><category term="c" /><category term="code" /><category term="os" /><summary type="html"><![CDATA[Unlock the power of concurrent programming in C, with practical examples using pthreads library]]></summary></entry><entry><title type="html">Beyond 3.14</title><link href="http://localhost:4000/blog/2023/calcuate-pi-for-fun/" rel="alternate" type="text/html" title="Beyond 3.14" /><published>2023-08-06T00:00:00+05:30</published><updated>2023-08-06T00:00:00+05:30</updated><id>http://localhost:4000/blog/2023/calcuate-pi-for-fun</id><content type="html" xml:base="http://localhost:4000/blog/2023/calcuate-pi-for-fun/"><![CDATA[<p>Hey there, fellow math and computer enthusiasts! Today, we’re diving into one of the most captivating and profound constants in mathematics - Pi (\(\pi\)). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let’s embark on a journey to unravel the mysteries of pi and discover different ways of calculating \(\pi\).</p>
+</code></pre></div></div>
+
+<h2 id="thread-synchronization">Thread Synchronization</h2>
+
+<p>When working with pthreads, synchronization is key to ensuring that your threads play nicely together. It is curcial to ensure that threads access shared resources safely and efficiently. Pthreads provide a range of synchronization functions that allow threads to coordinate their actions and avoid race conditions.</p>
+
+<p>Types of Synchronization Functions:</p>
+<ol>
+  <li>Mutexes (Mutual Exclusion): Allow only one thread to access a shared resource at a time.</li>
+  <li>Condition Variables: Allow threads to wait for a specific condition to occur before proceeding.</li>
+  <li>Semaphores: Allow a limited number of threads to access a shared resource.</li>
+  <li>Barriers: Allow multiple threads to wait until all threads have reached a specific point.</li>
+</ol>
+
+<p>To illustrate the concept of synchronization functions, let’s consider the earlier example of cooking dinner, but lets add multiple chefs.</p>
+
+<h3 id="problem-statement-the-dinner-party-story">Problem Statement: The Dinner Party Story</h3>
+
+<p>Imagine a busy kitchen where multiple chefs (threads) are working together to prepare a multi-course dinner for a large party. The kitchen has limited resources, such as ovens, stoves and utensils, which need to be shared safely among the chefs.</p>
+
+<h3 id="example-1-critical-section-problem-with-mutexes">Example 1: Critical Section Problem with Mutexes</h3>
+
+<p>Two chefs Alex and Luke, need to access the oven to bake different dishes. Without synchronization, both chefs might try to access the oven simultaneously, leading to conflicts and potentially ruining the dishes. To avoid this problem, the chefs use a mutex lock to synchronize the access to the oven.</p>
+
+<p>A mutex (short for “mutual exclusion”) is a synchronization primitive that allows only one thread to access a shared resource at a time. In this example we’ll use the <code class="language-plaintext highlighter-rouge">pthread_mutex_lock</code> function to lock the mutex, ensuring that only one chef can access the oven at a time.</p>
+
+<h4 id="declaration">Declaration:</h4>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">pthread_mutex_lock</span><span class="p">(</span><span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="n">mutex</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">pthread_mutex_trylock</span><span class="p">(</span><span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="n">mutex</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">pthread_mutex_unlock</span><span class="p">(</span><span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="n">mutex</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">pthread_mutex_lock</code> locks the mutex specified by varibale “mutex”. If the mutex is already locked, the calling thread will block until the mutex is unlocked by <code class="language-plaintext highlighter-rouge">pthread_mutex_unlock</code>. 
+The <code class="language-plaintext highlighter-rouge">pthread_mutex_trylock</code> is similar to <code class="language-plaintext highlighter-rouge">pthread_mutex_lock</code>, except that if the mutex object referenced by mutex is currently locked, instead of blocking the thread, it return immediately.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">pthread_mutex_lock</code> and <code class="language-plaintext highlighter-rouge">pthread_mutex_unlock</code> will returns 0 on success and error code on failure. The <code class="language-plaintext highlighter-rouge">pthread_mutex_trylock</code> will return 0 if a lock on the mutex object referenced by mutex is acquired, otherwise, and error code.</p>
+
+<h4 id="the-code">The Code:</h4>
+<p>Here is the code snippet that demonstrates how the chefs use a mutex lock to synchronize their actions:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pthread_mutex_t</span> <span class="n">oven_mutex</span> <span class="o">=</span> <span class="n">PTHREAD_MUTEX_INITIALIZER</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="o">*</span> <span class="nf">Chef1</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">){</span>
+    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">oven_mutex</span><span class="p">);</span>
+    <span class="c1">// Bake dish 1</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Chef 1 is baking a cake... </span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">oven_mutex</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="o">*</span> <span class="nf">Chef2</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">){</span>
+    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">oven_mutex</span><span class="p">);</span>
+    <span class="c1">// Bake dish 2</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Chef 2 is baking a pizza... </span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">oven_mutex</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h4 id="how-it-works">How it Works:</h4>
+<ul>
+  <li>The mutex <code class="language-plaintext highlighter-rouge">oven_mutex</code> is shared by Chef1 and Chef2.</li>
+  <li>They create their threads and start executing their respective thread functions. When Chef1 tries to access the oven, it locks the mutex using <code class="language-plaintext highlighter-rouge">pthread_mutex_lock</code>.</li>
+  <li>Once the mutexis locked, Chef1 enters the critical section and bakes the cake.</li>
+  <li>Meanwhile, if Chef2 also access the oven and see the mutex in locked state, it will block until the mutex is unlocked by Chef1.</li>
+  <li>After baking the cake, Chef1 unlocks the mutex using <code class="language-plaintext highlighter-rouge">pthread_mutex_unlock</code>.</li>
+  <li>And similarly, chef2 locks the mutex, bakes the pizza and unlocks the mutex.</li>
+</ul>
+
+<p>By using a mutex lock, the chefs ensure that only one of them can access the oven at a time, preventing conflictst and ensuring that each dish is prepared perfectly.</p>
+
+<h3 id="example-2-producer-consumer-problem-with-condition-variables">Example 2: Producer-Consumer Problem with Condition Variables</h3>
+
+<p>Now, one of your chef, let’s say Claire, is responsible for preparing ingredients, while another chef, Phil, needs to use those ingredients to prepare a dish. 
+Without synchronization, Phil (consumer) might try to use the ingredients before Claire (producer) has finished preparing them, reuslting in a dish that is incomplete or incorrect. For instance, Claire might be preparing a sauce, while Phil tries to use it before it’s ready, leading to a culinary disaster.</p>
+
+<p>To avoid this problem, the chefs use a condition variable to synchronize their actions. A condition variable is a synchronization primitive that allows threads to wait until a specific condition is met. In this example we’ll use the <code class="language-plaintext highlighter-rouge">pthread_cond_wait</code> and <code class="language-plaintext highlighter-rouge">pthread_cond_signal</code> functions to implement the producer-consumer synchronization.</p>
+
+<h4 id="declaration-1">Declaration:</h4>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// wait on a condition</span>
+<span class="kt">int</span> <span class="nf">pthread_cond_wait</span><span class="p">(</span><span class="n">pthread_cond_t</span> <span class="o">*</span><span class="n">cond</span><span class="p">,</span> <span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="n">mutex</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">pthread_cond_timedwait</span><span class="p">(</span><span class="n">pthread_cond_t</span> <span class="o">*</span><span class="n">cond</span><span class="p">,</span> 
+                           <span class="n">pthread_mutex_t</span> <span class="o">*</span><span class="n">mutex</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">timespec</span> <span class="o">*</span><span class="n">abstime</span><span class="p">);</span>
+
+<span class="c1">// signal or broadcast a condition</span>
+<span class="kt">int</span> <span class="nf">pthread_cond_signal</span><span class="p">(</span><span class="n">pthread_cond_t</span> <span class="o">*</span><span class="n">cond</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">pthread_cond_broadcast</span><span class="p">(</span><span class="n">pthread_cond_t</span> <span class="o">*</span><span class="n">cond</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">pthread_cond_wait</code> and <code class="language-plaintext highlighter-rouge">pthread_cond_timedwait()</code>:
+    <ul>
+      <li>Releases the mutex specified by <code class="language-plaintext highlighter-rouge">mutex</code> and waits until the condition varibale <code class="language-plaintext highlighter-rouge">cond</code> is signaled.</li>
+      <li>They are called with mutex locked by the calling thread.</li>
+      <li>Returns 0 on success, or an error code on failure</li>
+      <li>The <code class="language-plaintext highlighter-rouge">pthread_cond_timedwait()</code> function is the same as <code class="language-plaintext highlighter-rouge">pthread_cond_wait()</code> except that an error is returned if the absolute time specified by abstime passes before the condition cond is signaled or broadcasted, or if the absolute time specified by abstime has already been passed at the time of the call.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">pthread_cond_signal</code> and <code class="language-plaintext highlighter-rouge">pthread_cond_broadcast</code>:
+    <ul>
+      <li>Signals the condition variable <code class="language-plaintext highlighter-rouge">cond</code>, waking up one or more threads that are waiting on it.</li>
+      <li>Returns 0 on success, or an error code on failure</li>
+      <li>The <code class="language-plaintext highlighter-rouge">pthread_cond_signal</code> wakes up at least one of the thread that are waiting on <code class="language-plaintext highlighter-rouge">cond</code>, whereas the <code class="language-plaintext highlighter-rouge">pthread_cond_broadcast</code> wakes up all the threads that are waiting.</li>
+      <li>There is no effect for these functions if there are no threads currently blocked on <code class="language-plaintext highlighter-rouge">cond</code>.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="the-code-1">The Code:</h4>
+<p>Here is the code snippet that demonstrates how the chefs use a condition variable to synchronize their actions:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pthread_mutex_t</span> <span class="n">sauce_mutex</span><span class="p">;</span>
+<span class="n">pthread_cond_t</span> <span class="n">sauce_cond</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">sauce_ready</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Producer: Claire</span>
+<span class="kt">void</span> <span class="nf">Chef_Producer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">){</span>
+    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sauce_mutex</span><span class="p">);</span>
+    <span class="c1">// Prepare the sauce</span>
+    <span class="n">sauce_ready</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sauce_cond</span><span class="p">);</span>
+    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sauce_mutex</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Consumer: Phil</span>
+<span class="kt">void</span> <span class="nf">Chef_Consumer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">){</span>
+    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sauce_mutex</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">sauce_ready</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="n">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sauce_cond</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sauce_mutex</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">// Use the sauce to prepare the dish</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Chef Phil is preparing the dish...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">sauce_ready</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sauce_mutex</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="how-it-works-1">How it Works:</h4>]]></content><author><name></name></author><category term="code-for-fun" /><category term="c" /><category term="code" /><category term="os" /><summary type="html"><![CDATA[Unlock the power of concurrent programming in C, with practical examples using pthreads library]]></summary></entry><entry><title type="html">Beyond 3.14</title><link href="http://localhost:4000/blog/2023/calcuate-pi-for-fun/" rel="alternate" type="text/html" title="Beyond 3.14" /><published>2023-08-06T00:00:00+05:30</published><updated>2023-08-06T00:00:00+05:30</updated><id>http://localhost:4000/blog/2023/calcuate-pi-for-fun</id><content type="html" xml:base="http://localhost:4000/blog/2023/calcuate-pi-for-fun/"><![CDATA[<p>Hey there, fellow math and computer enthusiasts! Today, we’re diving into one of the most captivating and profound constants in mathematics - Pi (\(\pi\)). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let’s embark on a journey to unravel the mysteries of pi and discover different ways of calculating \(\pi\).</p>
 
 <p>You may have wondered how people compute the value of \(\pi\) accurately, and how do they know that they are accurate. Then you are at right place, today we will unravel the mysteries of convergence and error metrics.</p>
 
