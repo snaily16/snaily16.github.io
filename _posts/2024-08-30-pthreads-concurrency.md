@@ -216,7 +216,7 @@ void* Chef2(void* arg){
 }
 ```
 #### How it Works: 
-- The mutex `oven_mutex` is shared by Chef1 and Chef2.
+- The mutex `oven_mutex` is shared by Chef1 and Chef2 and is initialized using `PTHREAD_MUTEX_INITIALIZER`.
 - They create their threads and start executing their respective thread functions. When Chef1 tries to access the oven, it locks the mutex using `pthread_mutex_lock`.
 - Once the mutexis locked, Chef1 enters the critical section and bakes the cake.
 - Meanwhile, if Chef2 also access the oven and see the mutex in locked state, it will block until the mutex is unlocked by Chef1. 
@@ -245,13 +245,13 @@ int pthread_cond_signal(pthread_cond_t *cond);
 int pthread_cond_broadcast(pthread_cond_t *cond);
 ```
 
-1. `pthread_cond_wait` and `pthread_cond_timedwait()`:
+1. Wait on a condition:
 - Releases the mutex specified by `mutex` and waits until the condition varibale `cond` is signaled.
 - They are called with mutex locked by the calling thread.
 - Returns 0 on success, or an error code on failure
 - The `pthread_cond_timedwait()` function is the same as `pthread_cond_wait()` except that an error is returned if the absolute time specified by abstime passes before the condition cond is signaled or broadcasted, or if the absolute time specified by abstime has already been passed at the time of the call.
 
-2. `pthread_cond_signal` and `pthread_cond_broadcast`:
+2. Signal or brodcast a condition:
 - Signals the condition variable `cond`, waking up one or more threads that are waiting on it.
 - Returns 0 on success, or an error code on failure
 - The `pthread_cond_signal` wakes up at least one of the thread that are waiting on `cond`, whereas the `pthread_cond_broadcast` wakes up all the threads that are waiting.
@@ -261,8 +261,8 @@ int pthread_cond_broadcast(pthread_cond_t *cond);
 Here is the code snippet that demonstrates how the chefs use a condition variable to synchronize their actions:
 
 ```c
-pthread_mutex_t sauce_mutex;
-pthread_cond_t sauce_cond;
+pthread_mutex_t sauce_mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t sauce_cond = PTHREAD_COND_INITIALIZER;
 
 int sauce_ready = 0;
 
@@ -270,6 +270,7 @@ int sauce_ready = 0;
 void Chef_Producer(void *arg){
     pthread_mutex_lock(&sauce_mutex);
     // Prepare the sauce
+    printf("Chef Claire is preparing the sauce...\n");
     sauce_ready = 1;
     pthread_cond_signal(&sauce_cond);
     pthread_mutex_unlock(&sauce_mutex);
@@ -291,4 +292,80 @@ void Chef_Consumer(void *arg){
 ```
 
 #### How it Works:
+- The mutex `sauce_mutex` and condition varibale `sauce_cond` are initialized using `PTHREAD_MUTEX_INITIALIZER` and `PTHREAD_COND_INITIALIZER`, respectively.
+- Claire (the producer) creates its thread and starts executing its thread function, she prepares the sauce and sets the `sauce_ready` flag to 1. 
+- Claire signals the condition variable using `pthread_cond_signal`, waking up Phil (the consumer).- Phil waits on the condition variable using `pthread_cond_wait` until the sauce is ready. Once its ready, Phil uses it to prepare the dish.
+- Phil resets the `sauce_ready` flag to 0 to indicate that the sauce is no longer available.
+
+By using a condition variable, both Claire and Phil ensures that Phil wait until Claire has finished preparing the sauce, ensuring the dish is prepared correctly.
+
+### Example 3: Reader-Writer Problem with Semaphores
+
+Our head chef, Gloria, has meticulously recorded all her grandmother's recipes in her treasured recipe book, which only she is allowed to modify. Her team of chefs, including Phil, Claire, Alex and Luke, need to access to prepare different dishes. 
+
+Without proper synchronization, multiple chefs might attempt to access the recipe book simultaneously, leading to inconsistencies and errors. For instance, if one chef is reading a recipe while another chef is updating it, the first chef might obtain an outdated or incorrect recipe. To avoid this problem, the chefs utilize a semaphore to synchronize their access to the recipe book. A semaphore is a synchronization primitive that allows a limited number of threads to access a shared resource.
+
+#### Declaration
+
+```c
+// lock a semaphore
+int sem_wait(sem_t *sem);
+int sem_trywait(sem_t *sem);
+
+// unlock a semaphore
+int sem_post(sem_t *sem);
+```
+
+1. Lock a semaphore:
+- Decrements the semaphore value.
+- If the semaphore value is currently zero, `sem_wait` blocks the calling thread until the semaphore value becomes positive. When semaphore value is positive, it decrements the value and allows the thread to proceed.
+- Unlike `sem_wait`, `sem_trywait` does not block the calling thread if the semaphore value is zero. Instead, it returns an error code. 
+- Returns 0 on success, or an error code on failure.
+
+2. Unlock a semaphore:
+- The `sem_post` call, increments the semaphore value and wakes up one or more threads that are waiting on it.
+- Returns 0 on success, or an error code on failure.
+
+#### The Code:
+
+Here's an example code snipped that demonstrates how the chefs use a semaphore to synchronize their access to the recipe book:
+
+```c
+
+sem_t recipe_book_semaphore;
+#define READERS 5
+
+void* ChefReader(void *arg) {
+    sem_wait(&recipe_book_semaphore);
+    // Read the recipe book
+    printf("Chef %ld is reading recipe book...\n", (long)arg);
+    sem_post(&recipe_book_semaphore);
+    return NULL;
+}
+
+void *HeadChef(void *arg){
+    // Wait for all readers to finish
+    for(int i=0; i<READERS; i++)
+        sem_wait(&recipe_book_semaphore);
+    // Update the recipe book
+    printf("Head Chef is updating recipe book...\n");
+    sem_post(&recipe_book_semaphore);
+    return NULL;
+}
+
+int main(){
+  sem_init(&recipe_book_semaphore, 0, READERS); // Allow up to n readers to access simultaneously
+  // Create threads here...
+  sem_destroy(&recipe_book_semaphore);
+  return 0;
+}
+```
+#### How it Works:
+- The semaphore `recipe_book_semaphore` is initialized uisng the `sem_t` type. This semaphore is used to synchronize access to the recipe book.
+- When a ChefReader thread arrives, it waits for the semaphore to be available using sem_wait. If the semaphore is available, the thread decrements its value and continues execution. Since multiple ChefReader threads can decrement the semaphore value simultaneously, multiple readers can access the recipe book at the same time.
+- When a HeadChef thread arrives, it also waits for the semaphore to be available using sem_wait. However, since the semaphore value is decremented by the ChefReader threads, the HeadChef thread will block until all ChefReader threads have finished reading the recipe book and released the semaphore. This ensures that the HeadChef thread has exclusive access to the recipe book when updating it.
+- When a ChefReader thread finishes reading the recipe book, it releases the semaphore using sem_post, incrementing its value. This allows other ChefReader threads to access the recipe book.
+- When the HeadChef thread finishes updating the recipe book, it releases the semaphore using sem_post, incrementing its value. This allows other threads to access the recipe book.
+
+By using a semaphore to synchronize access to the recipe book, the code ensures that multiple ChefReader threads can read the recipe book simultaneously, while the HeadChef thread has exclusive access to the recipe book when updating it.
 

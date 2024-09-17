@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-13T23:21:44+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-17T22:27:34+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">The Art of Concurrency</title><link href="http://localhost:4000/blog/2024/pthreads-concurrency/" rel="alternate" type="text/html" title="The Art of Concurrency" /><published>2024-08-30T00:00:00+05:30</published><updated>2024-08-30T00:00:00+05:30</updated><id>http://localhost:4000/blog/2024/pthreads-concurrency</id><content type="html" xml:base="http://localhost:4000/blog/2024/pthreads-concurrency/"><![CDATA[<p>Hey there, fellow coders!</p>
 
 <p>Are you ready to unravel the mystery of threads? Not the kind you use to sew or weave, but the kind that makes your computer run multiple tasks at same time. Yeah, that kind! No yarns, threads, or needles required!
@@ -226,7 +226,7 @@ The <code class="language-plaintext highlighter-rouge">pthread_mutex_trylock</co
 </code></pre></div></div>
 <h4 id="how-it-works">How it Works:</h4>
 <ul>
-  <li>The mutex <code class="language-plaintext highlighter-rouge">oven_mutex</code> is shared by Chef1 and Chef2.</li>
+  <li>The mutex <code class="language-plaintext highlighter-rouge">oven_mutex</code> is shared by Chef1 and Chef2 and is initialized using <code class="language-plaintext highlighter-rouge">PTHREAD_MUTEX_INITIALIZER</code>.</li>
   <li>They create their threads and start executing their respective thread functions. When Chef1 tries to access the oven, it locks the mutex using <code class="language-plaintext highlighter-rouge">pthread_mutex_lock</code>.</li>
   <li>Once the mutexis locked, Chef1 enters the critical section and bakes the cake.</li>
   <li>Meanwhile, if Chef2 also access the oven and see the mutex in locked state, it will block until the mutex is unlocked by Chef1.</li>
@@ -256,7 +256,7 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
 </code></pre></div></div>
 
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">pthread_cond_wait</code> and <code class="language-plaintext highlighter-rouge">pthread_cond_timedwait()</code>:
+  <li>Wait on a condition:
     <ul>
       <li>Releases the mutex specified by <code class="language-plaintext highlighter-rouge">mutex</code> and waits until the condition varibale <code class="language-plaintext highlighter-rouge">cond</code> is signaled.</li>
       <li>They are called with mutex locked by the calling thread.</li>
@@ -264,7 +264,7 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
       <li>The <code class="language-plaintext highlighter-rouge">pthread_cond_timedwait()</code> function is the same as <code class="language-plaintext highlighter-rouge">pthread_cond_wait()</code> except that an error is returned if the absolute time specified by abstime passes before the condition cond is signaled or broadcasted, or if the absolute time specified by abstime has already been passed at the time of the call.</li>
     </ul>
   </li>
-  <li><code class="language-plaintext highlighter-rouge">pthread_cond_signal</code> and <code class="language-plaintext highlighter-rouge">pthread_cond_broadcast</code>:
+  <li>Signal or brodcast a condition:
     <ul>
       <li>Signals the condition variable <code class="language-plaintext highlighter-rouge">cond</code>, waking up one or more threads that are waiting on it.</li>
       <li>Returns 0 on success, or an error code on failure</li>
@@ -277,8 +277,8 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
 <h4 id="the-code-1">The Code:</h4>
 <p>Here is the code snippet that demonstrates how the chefs use a condition variable to synchronize their actions:</p>
 
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pthread_mutex_t</span> <span class="n">sauce_mutex</span><span class="p">;</span>
-<span class="n">pthread_cond_t</span> <span class="n">sauce_cond</span><span class="p">;</span>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pthread_mutex_t</span> <span class="n">sauce_mutex</span> <span class="o">=</span> <span class="n">PTHREAD_MUTEX_INITIALIZER</span><span class="p">;</span>
+<span class="n">pthread_cond_t</span> <span class="n">sauce_cond</span> <span class="o">=</span> <span class="n">PTHREAD_COND_INITIALIZER</span><span class="p">;</span>
 
 <span class="kt">int</span> <span class="n">sauce_ready</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
@@ -286,6 +286,7 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
 <span class="kt">void</span> <span class="nf">Chef_Producer</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">){</span>
     <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sauce_mutex</span><span class="p">);</span>
     <span class="c1">// Prepare the sauce</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Chef Claire is preparing the sauce...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
     <span class="n">sauce_ready</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="n">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sauce_cond</span><span class="p">);</span>
     <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sauce_mutex</span><span class="p">);</span>
@@ -306,7 +307,92 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
 <span class="p">}</span>
 </code></pre></div></div>
 
-<h4 id="how-it-works-1">How it Works:</h4>]]></content><author><name></name></author><category term="code-for-fun" /><category term="c" /><category term="code" /><category term="os" /><summary type="html"><![CDATA[Unlock the power of concurrent programming in C, with practical examples using pthreads library]]></summary></entry><entry><title type="html">Beyond 3.14</title><link href="http://localhost:4000/blog/2023/calcuate-pi-for-fun/" rel="alternate" type="text/html" title="Beyond 3.14" /><published>2023-08-06T00:00:00+05:30</published><updated>2023-08-06T00:00:00+05:30</updated><id>http://localhost:4000/blog/2023/calcuate-pi-for-fun</id><content type="html" xml:base="http://localhost:4000/blog/2023/calcuate-pi-for-fun/"><![CDATA[<p>Hey there, fellow math and computer enthusiasts! Today, we’re diving into one of the most captivating and profound constants in mathematics - Pi (\(\pi\)). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let’s embark on a journey to unravel the mysteries of pi and discover different ways of calculating \(\pi\).</p>
+<h4 id="how-it-works-1">How it Works:</h4>
+<ul>
+  <li>The mutex <code class="language-plaintext highlighter-rouge">sauce_mutex</code> and condition varibale <code class="language-plaintext highlighter-rouge">sauce_cond</code> are initialized using <code class="language-plaintext highlighter-rouge">PTHREAD_MUTEX_INITIALIZER</code> and <code class="language-plaintext highlighter-rouge">PTHREAD_COND_INITIALIZER</code>, respectively.</li>
+  <li>Claire (the producer) creates its thread and starts executing its thread function, she prepares the sauce and sets the <code class="language-plaintext highlighter-rouge">sauce_ready</code> flag to 1.</li>
+  <li>Claire signals the condition variable using <code class="language-plaintext highlighter-rouge">pthread_cond_signal</code>, waking up Phil (the consumer).- Phil waits on the condition variable using <code class="language-plaintext highlighter-rouge">pthread_cond_wait</code> until the sauce is ready. Once its ready, Phil uses it to prepare the dish.</li>
+  <li>Phil resets the <code class="language-plaintext highlighter-rouge">sauce_ready</code> flag to 0 to indicate that the sauce is no longer available.</li>
+</ul>
+
+<p>By using a condition variable, both Claire and Phil ensures that Phil wait until Claire has finished preparing the sauce, ensuring the dish is prepared correctly.</p>
+
+<h3 id="example-3-reader-writer-problem-with-semaphores">Example 3: Reader-Writer Problem with Semaphores</h3>
+
+<p>Our head chef, Gloria, has meticulously recorded all her grandmother’s recipes in her treasured recipe book, which only she is allowed to modify. Her team of chefs, including Phil, Claire, Alex and Luke, need to access to prepare different dishes.</p>
+
+<p>Without proper synchronization, multiple chefs might attempt to access the recipe book simultaneously, leading to inconsistencies and errors. For instance, if one chef is reading a recipe while another chef is updating it, the first chef might obtain an outdated or incorrect recipe. To avoid this problem, the chefs utilize a semaphore to synchronize their access to the recipe book. A semaphore is a synchronization primitive that allows a limited number of threads to access a shared resource.</p>
+
+<h4 id="declaration-2">Declaration</h4>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// lock a semaphore</span>
+<span class="kt">int</span> <span class="nf">sem_wait</span><span class="p">(</span><span class="n">sem_t</span> <span class="o">*</span><span class="n">sem</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">sem_trywait</span><span class="p">(</span><span class="n">sem_t</span> <span class="o">*</span><span class="n">sem</span><span class="p">);</span>
+
+<span class="c1">// unlock a semaphore</span>
+<span class="kt">int</span> <span class="nf">sem_post</span><span class="p">(</span><span class="n">sem_t</span> <span class="o">*</span><span class="n">sem</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Lock a semaphore:
+    <ul>
+      <li>Decrements the semaphore value.</li>
+      <li>If the semaphore value is currently zero, <code class="language-plaintext highlighter-rouge">sem_wait</code> blocks the calling thread until the semaphore value becomes positive. When semaphore value is positive, it decrements the value and allows the thread to proceed.</li>
+      <li>Unlike <code class="language-plaintext highlighter-rouge">sem_wait</code>, <code class="language-plaintext highlighter-rouge">sem_trywait</code> does not block the calling thread if the semaphore value is zero. Instead, it returns an error code.</li>
+      <li>Returns 0 on success, or an error code on failure.</li>
+    </ul>
+  </li>
+  <li>Unlock a semaphore:
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">sem_post</code> call, increments the semaphore value and wakes up one or more threads that are waiting on it.</li>
+      <li>Returns 0 on success, or an error code on failure.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="the-code-2">The Code:</h4>
+
+<p>Here’s an example code snipped that demonstrates how the chefs use a semaphore to synchronize their access to the recipe book:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">sem_t</span> <span class="n">recipe_book_semaphore</span><span class="p">;</span>
+<span class="cp">#define READERS 5
+</span>
+<span class="kt">void</span><span class="o">*</span> <span class="nf">ChefReader</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">recipe_book_semaphore</span><span class="p">);</span>
+    <span class="c1">// Read the recipe book</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Chef %ld is reading recipe book...</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">arg</span><span class="p">);</span>
+    <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">recipe_book_semaphore</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="o">*</span><span class="nf">HeadChef</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">){</span>
+    <span class="c1">// Wait for all readers to finish</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">READERS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">recipe_book_semaphore</span><span class="p">);</span>
+    <span class="c1">// Update the recipe book</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Head Chef is updating recipe book...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">recipe_book_semaphore</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+  <span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">recipe_book_semaphore</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">READERS</span><span class="p">);</span> <span class="c1">// Allow up to n readers to access simultaneously</span>
+  <span class="c1">// Create threads here...</span>
+  <span class="n">sem_destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">recipe_book_semaphore</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h4 id="how-it-works-2">How it Works:</h4>
+<ul>
+  <li>The semaphore <code class="language-plaintext highlighter-rouge">recipe_book_semaphore</code> is initialized uisng the <code class="language-plaintext highlighter-rouge">sem_t</code> type. This semaphore is used to synchronize access to the recipe book.</li>
+  <li>When a ChefReader thread arrives, it waits for the semaphore to be available using sem_wait. If the semaphore is available, the thread decrements its value and continues execution. Since multiple ChefReader threads can decrement the semaphore value simultaneously, multiple readers can access the recipe book at the same time.</li>
+  <li>When a HeadChef thread arrives, it also waits for the semaphore to be available using sem_wait. However, since the semaphore value is decremented by the ChefReader threads, the HeadChef thread will block until all ChefReader threads have finished reading the recipe book and released the semaphore. This ensures that the HeadChef thread has exclusive access to the recipe book when updating it.</li>
+  <li>When a ChefReader thread finishes reading the recipe book, it releases the semaphore using sem_post, incrementing its value. This allows other ChefReader threads to access the recipe book.</li>
+  <li>When the HeadChef thread finishes updating the recipe book, it releases the semaphore using sem_post, incrementing its value. This allows other threads to access the recipe book.</li>
+</ul>
+
+<p>By using a semaphore to synchronize access to the recipe book, the code ensures that multiple ChefReader threads can read the recipe book simultaneously, while the HeadChef thread has exclusive access to the recipe book when updating it.</p>]]></content><author><name></name></author><category term="code-for-fun" /><category term="c" /><category term="code" /><category term="os" /><summary type="html"><![CDATA[Unlock the power of concurrent programming in C, with practical examples using pthreads library]]></summary></entry><entry><title type="html">Beyond 3.14</title><link href="http://localhost:4000/blog/2023/calcuate-pi-for-fun/" rel="alternate" type="text/html" title="Beyond 3.14" /><published>2023-08-06T00:00:00+05:30</published><updated>2023-08-06T00:00:00+05:30</updated><id>http://localhost:4000/blog/2023/calcuate-pi-for-fun</id><content type="html" xml:base="http://localhost:4000/blog/2023/calcuate-pi-for-fun/"><![CDATA[<p>Hey there, fellow math and computer enthusiasts! Today, we’re diving into one of the most captivating and profound constants in mathematics - Pi (\(\pi\)). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let’s embark on a journey to unravel the mysteries of pi and discover different ways of calculating \(\pi\).</p>
 
 <p>You may have wondered how people compute the value of \(\pi\) accurately, and how do they know that they are accurate. Then you are at right place, today we will unravel the mysteries of convergence and error metrics.</p>
 
