@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-17T22:27:34+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-24T22:51:09+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">The Art of Concurrency</title><link href="http://localhost:4000/blog/2024/pthreads-concurrency/" rel="alternate" type="text/html" title="The Art of Concurrency" /><published>2024-08-30T00:00:00+05:30</published><updated>2024-08-30T00:00:00+05:30</updated><id>http://localhost:4000/blog/2024/pthreads-concurrency</id><content type="html" xml:base="http://localhost:4000/blog/2024/pthreads-concurrency/"><![CDATA[<p>Hey there, fellow coders!</p>
 
 <p>Are you ready to unravel the mystery of threads? Not the kind you use to sew or weave, but the kind that makes your computer run multiple tasks at same time. Yeah, that kind! No yarns, threads, or needles required!
@@ -177,7 +177,6 @@ If a thread encounters an error, <code class="language-plaintext highlighter-rou
   <li>Mutexes (Mutual Exclusion): Allow only one thread to access a shared resource at a time.</li>
   <li>Condition Variables: Allow threads to wait for a specific condition to occur before proceeding.</li>
   <li>Semaphores: Allow a limited number of threads to access a shared resource.</li>
-  <li>Barriers: Allow multiple threads to wait until all threads have reached a specific point.</li>
 </ol>
 
 <p>To illustrate the concept of synchronization functions, let’s consider the earlier example of cooking dinner, but lets add multiple chefs.</p>
@@ -264,7 +263,7 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
       <li>The <code class="language-plaintext highlighter-rouge">pthread_cond_timedwait()</code> function is the same as <code class="language-plaintext highlighter-rouge">pthread_cond_wait()</code> except that an error is returned if the absolute time specified by abstime passes before the condition cond is signaled or broadcasted, or if the absolute time specified by abstime has already been passed at the time of the call.</li>
     </ul>
   </li>
-  <li>Signal or brodcast a condition:
+  <li>Signal or broadcast a condition:
     <ul>
       <li>Signals the condition variable <code class="language-plaintext highlighter-rouge">cond</code>, waking up one or more threads that are waiting on it.</li>
       <li>Returns 0 on success, or an error code on failure</li>
@@ -392,7 +391,14 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
   <li>When the HeadChef thread finishes updating the recipe book, it releases the semaphore using sem_post, incrementing its value. This allows other threads to access the recipe book.</li>
 </ul>
 
-<p>By using a semaphore to synchronize access to the recipe book, the code ensures that multiple ChefReader threads can read the recipe book simultaneously, while the HeadChef thread has exclusive access to the recipe book when updating it.</p>]]></content><author><name></name></author><category term="code-for-fun" /><category term="c" /><category term="code" /><category term="os" /><summary type="html"><![CDATA[Unlock the power of concurrent programming in C, with practical examples using pthreads library]]></summary></entry><entry><title type="html">Beyond 3.14</title><link href="http://localhost:4000/blog/2023/calcuate-pi-for-fun/" rel="alternate" type="text/html" title="Beyond 3.14" /><published>2023-08-06T00:00:00+05:30</published><updated>2023-08-06T00:00:00+05:30</updated><id>http://localhost:4000/blog/2023/calcuate-pi-for-fun</id><content type="html" xml:base="http://localhost:4000/blog/2023/calcuate-pi-for-fun/"><![CDATA[<p>Hey there, fellow math and computer enthusiasts! Today, we’re diving into one of the most captivating and profound constants in mathematics - Pi (\(\pi\)). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let’s embark on a journey to unravel the mysteries of pi and discover different ways of calculating \(\pi\).</p>
+<p>By using a semaphore to synchronize access to the recipe book, the code ensures that multiple ChefReader threads can read the recipe book simultaneously, while the HeadChef thread has exclusive access to the recipe book when updating it.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+<p>And that’s a wrap, folks! We’ve covered the basics of pthreads and synchronization functions in C. From creating threads to synchronizing access to shared resources, we’ve learned how to cook up some tasty multi-threaded programs.</p>
+
+<p>Think of it like cooking a meal - you need to make sure all the ingredients are ready at the right time, and that each step is executed in the right order. With pthreads and synchronization functions, you can ensure that your threads are working together in harmony, just like a well-coordinated kitchen team.</p>
+
+<p>I hope this blog has been a recipe for success in understanding pthreads and synchronization. If you have any questions or need further clarification, please don’t hesitate to ask! Happy coding, and bon appétit!</p>]]></content><author><name></name></author><category term="code-for-fun" /><category term="c" /><category term="code" /><category term="os" /><summary type="html"><![CDATA[Unlock the power of concurrent programming in C, with practical examples using pthreads library]]></summary></entry><entry><title type="html">Beyond 3.14</title><link href="http://localhost:4000/blog/2023/calcuate-pi-for-fun/" rel="alternate" type="text/html" title="Beyond 3.14" /><published>2023-08-06T00:00:00+05:30</published><updated>2023-08-06T00:00:00+05:30</updated><id>http://localhost:4000/blog/2023/calcuate-pi-for-fun</id><content type="html" xml:base="http://localhost:4000/blog/2023/calcuate-pi-for-fun/"><![CDATA[<p>Hey there, fellow math and computer enthusiasts! Today, we’re diving into one of the most captivating and profound constants in mathematics - Pi (\(\pi\)). As enthusiasts of both math and computing, we understand the extraordinary significance of this simple, yet infinitely complex number. So, let’s embark on a journey to unravel the mysteries of pi and discover different ways of calculating \(\pi\).</p>
 
 <p>You may have wondered how people compute the value of \(\pi\) accurately, and how do they know that they are accurate. Then you are at right place, today we will unravel the mysteries of convergence and error metrics.</p>
 
@@ -452,13 +458,33 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
 <p>Let’s explore some modern methods used to calculate pi and provide Python implementations to demonstrate these techniques and calculating \(\pi\) upto 5000 digits.</p>
 
 <h4 id="calculating-pi-using-machin-like-formula">Calculating \(\pi\) using Machin-like formula</h4>
-<p>This equation was discovered in 1706 by John Machin, and has been in use for around 300 years. It is suitable for the calculation of Pi because it converges quickly. The formula relates pi to arctangent (inverse tangent) values. Here’s the formula:</p>
+<p>One of the most well-known methods for calculating pi is the Machin-like formula, discovered by John Machin in 1706. This formula has been in use for around 300 years and converges quickly, making it suitable for the calculation of pi. The formula relates pi to arctangent (inverse tangent) values, as shown below:</p>
 
 \[{\frac  {\pi }{4}}=4\arctan {\frac  {1}{5}}-\arctan {\frac  {1}{239}}\]
 
-<p>The Taylor’s series expansion for arctangent is :</p>
+<p>To calculate pi using this formula, we need to approximate the arctangent values. The Taylor’s series expansion for arctangent is:</p>
 
-\[arctan x=\sum _{n=0}^{\infty }{\frac {(-1)^{n}}{2n+1}}x^{2n+1}=x-{\frac {x^{3}}{3}}+{\frac {x^{5}}{5}}-{\frac {x^{7}}{7}}+\cdot\]
+\[arctan (x)=\sum _{n=0}^{\infty }{\frac {(-1)^{n}}{2n+1}}x^{2n+1}=x-{\frac {x^{3}}{3}}+{\frac {x^{5}}{5}}-{\frac {x^{7}}{7}}+\cdot\]
+
+<p>Using this equations, we can write a python function to calculate the arctan approximated up to n terms.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span> <span class="k">as</span> <span class="n">dec</span>
+
+<span class="k">def</span> <span class="nf">arctan_approx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nf">dec</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nf">dec</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># for -1 &lt;= x &lt;= 1
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nf">dec</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="nf">dec</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="nf">dec</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="nf">dec</span><span class="p">(</span><span class="n">sign</span> <span class="o">/</span> <span class="n">denom</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">total</span>
+</code></pre></div></div>
+
+<p>Using the properties of arctan, we can also represent pi as:</p>
+
+\[{\frac  {\pi }{4}}=\arctan {\frac  {1}{3}}+\arctan {\frac  {1}{2}}\]
 
 <h4 id="calculating-pi-using-wallis-product">Calculating \(\pi\) using Wallis Product</h4>
 

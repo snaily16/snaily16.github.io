@@ -32,9 +32,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
 
     
-    <!-- Sidebar Table of Contents -->
-    <link href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css" rel="stylesheet">
-    
 
     <!-- Styles -->
     
@@ -119,15 +116,7 @@
     <!-- Content -->
     <div class="container mt-5">
       
-        
-        <div class="row">
-          <!-- sidebar, which will move to the top on a small screen -->
-          <div class="col-sm-3">
-            <nav id="toc-sidebar" class="sticky-top"></nav>
-          </div>
-          <!-- main content area -->
-          <div class="col-sm-9">
-            <!-- _layouts/post.html -->
+        <!-- _layouts/post.html -->
 
 <div class="post">
 
@@ -215,13 +204,33 @@
 <p>Let’s explore some modern methods used to calculate pi and provide Python implementations to demonstrate these techniques and calculating \(\pi\) upto 5000 digits.</p>
 
 <h4 id="calculating-pi-using-machin-like-formula">Calculating \(\pi\) using Machin-like formula</h4>
-<p>This equation was discovered in 1706 by John Machin, and has been in use for around 300 years. It is suitable for the calculation of Pi because it converges quickly. The formula relates pi to arctangent (inverse tangent) values. Here’s the formula:</p>
+<p>One of the most well-known methods for calculating pi is the Machin-like formula, discovered by John Machin in 1706. This formula has been in use for around 300 years and converges quickly, making it suitable for the calculation of pi. The formula relates pi to arctangent (inverse tangent) values, as shown below:</p>
 
 \[{\frac  {\pi }{4}}=4\arctan {\frac  {1}{5}}-\arctan {\frac  {1}{239}}\]
 
-<p>The Taylor’s series expansion for arctangent is :</p>
+<p>To calculate pi using this formula, we need to approximate the arctangent values. The Taylor’s series expansion for arctangent is:</p>
 
-\[arctan x=\sum _{n=0}^{\infty }{\frac {(-1)^{n}}{2n+1}}x^{2n+1}=x-{\frac {x^{3}}{3}}+{\frac {x^{5}}{5}}-{\frac {x^{7}}{7}}+\cdot\]
+\[arctan (x)=\sum _{n=0}^{\infty }{\frac {(-1)^{n}}{2n+1}}x^{2n+1}=x-{\frac {x^{3}}{3}}+{\frac {x^{5}}{5}}-{\frac {x^{7}}{7}}+\cdot\]
+
+<p>Using this equations, we can write a python function to calculate the arctan approximated up to n terms.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span> <span class="k">as</span> <span class="n">dec</span>
+
+<span class="k">def</span> <span class="nf">arctan_approx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nf">dec</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nf">dec</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># for -1 &lt;= x &lt;= 1
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="mi">2</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nf">dec</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="nf">dec</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="nf">dec</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="nf">dec</span><span class="p">(</span><span class="n">sign</span> <span class="o">/</span> <span class="n">denom</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">total</span>
+</code></pre></div></div>
+
+<p>Using the properties of arctan, we can also represent pi as:</p>
+
+\[{\frac  {\pi }{4}}=\arctan {\frac  {1}{3}}+\arctan {\frac  {1}{2}}\]
 
 <h4 id="calculating-pi-using-wallis-product">Calculating \(\pi\) using Wallis Product</h4>
 
@@ -275,9 +284,6 @@
 
 </div>
 
-          </div>
-        </div>
-        
       
     </div>
 
@@ -305,9 +311,6 @@
   <!-- Medium Zoom JS -->
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
   <script defer src="/assets/js/zoom.js"></script>
-  <!-- Sidebar Table of Contents -->
-  <script defer src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
-
 
   <!-- Bootstrap Table -->
   <script defer src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>

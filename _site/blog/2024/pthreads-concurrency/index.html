@@ -331,7 +331,6 @@ If a thread encounters an error, <code class="language-plaintext highlighter-rou
   <li>Mutexes (Mutual Exclusion): Allow only one thread to access a shared resource at a time.</li>
   <li>Condition Variables: Allow threads to wait for a specific condition to occur before proceeding.</li>
   <li>Semaphores: Allow a limited number of threads to access a shared resource.</li>
-  <li>Barriers: Allow multiple threads to wait until all threads have reached a specific point.</li>
 </ol>
 
 <p>To illustrate the concept of synchronization functions, let’s consider the earlier example of cooking dinner, but lets add multiple chefs.</p>
@@ -418,7 +417,7 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
       <li>The <code class="language-plaintext highlighter-rouge">pthread_cond_timedwait()</code> function is the same as <code class="language-plaintext highlighter-rouge">pthread_cond_wait()</code> except that an error is returned if the absolute time specified by abstime passes before the condition cond is signaled or broadcasted, or if the absolute time specified by abstime has already been passed at the time of the call.</li>
     </ul>
   </li>
-  <li>Signal or brodcast a condition:
+  <li>Signal or broadcast a condition:
     <ul>
       <li>Signals the condition variable <code class="language-plaintext highlighter-rouge">cond</code>, waking up one or more threads that are waiting on it.</li>
       <li>Returns 0 on success, or an error code on failure</li>
@@ -548,6 +547,12 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
 
 <p>By using a semaphore to synchronize access to the recipe book, the code ensures that multiple ChefReader threads can read the recipe book simultaneously, while the HeadChef thread has exclusive access to the recipe book when updating it.</p>
 
+<h3 id="conclusion">Conclusion</h3>
+<p>And that’s a wrap, folks! We’ve covered the basics of pthreads and synchronization functions in C. From creating threads to synchronizing access to shared resources, we’ve learned how to cook up some tasty multi-threaded programs.</p>
+
+<p>Think of it like cooking a meal - you need to make sure all the ingredients are ready at the right time, and that each step is executed in the right order. With pthreads and synchronization functions, you can ensure that your threads are working together in harmony, just like a well-coordinated kitchen team.</p>
+
+<p>I hope this blog has been a recipe for success in understanding pthreads and synchronization. If you have any questions or need further clarification, please don’t hesitate to ask! Happy coding, and bon appétit!</p>
 
     </div>
   </article>
