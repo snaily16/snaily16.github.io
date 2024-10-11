@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-24T22:51:09+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-10-11T21:38:54+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">The Art of Concurrency</title><link href="http://localhost:4000/blog/2024/pthreads-concurrency/" rel="alternate" type="text/html" title="The Art of Concurrency" /><published>2024-08-30T00:00:00+05:30</published><updated>2024-08-30T00:00:00+05:30</updated><id>http://localhost:4000/blog/2024/pthreads-concurrency</id><content type="html" xml:base="http://localhost:4000/blog/2024/pthreads-concurrency/"><![CDATA[<p>Hey there, fellow coders!</p>
 
 <p>Are you ready to unravel the mystery of threads? Not the kind you use to sew or weave, but the kind that makes your computer run multiple tasks at same time. Yeah, that kind! No yarns, threads, or needles required!
@@ -315,6 +315,20 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
 </ul>
 
 <p>By using a condition variable, both Claire and Phil ensures that Phil wait until Claire has finished preparing the sauce, ensuring the dish is prepared correctly.</p>
+
+<p>However, this code can cause a deadlock if multiple consumers are present.</p>
+
+<p>Here’s why:</p>
+
+<ol>
+  <li>If multiple consumer threads are waiting on the sauce_cond condition variable, only one of them will be woken up and will continue executing.</li>
+  <li>The other consumer threads will still be waiting on the sauce_cond condition variable, holding the sauce_mutex lock.</li>
+  <li>When the producer thread tries to produce the sauce again, it will block on the sauce_mutex lock, waiting for one of the consumer threads to release it.</li>
+  <li>But the consumer threads are still waiting on the sauce_cond condition variable, and none of them can release the sauce_mutex lock because they are blocked.</li>
+  <li>This creates a deadlock situation, where the producer thread is waiting for a consumer thread to release the sauce_mutex lock, and the consumer threads are waiting for the producer thread to signal the sauce_cond condition variable again.</li>
+</ol>
+
+<p>By using <code class="language-plaintext highlighter-rouge">pthread_mutex_lock</code> and <code class="language-plaintext highlighter-rouge">pthread_mutex_unlock</code> with condition variables, we can ensure that only one thread can access the critical section of code at a time, preventing race conditions and ensuring thread safety.</p>
 
 <h3 id="example-3-reader-writer-problem-with-semaphores">Example 3: Reader-Writer Problem with Semaphores</h3>
 

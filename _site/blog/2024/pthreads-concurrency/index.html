@@ -470,6 +470,20 @@ Without synchronization, Phil (consumer) might try to use the ingredients before
 
 <p>By using a condition variable, both Claire and Phil ensures that Phil wait until Claire has finished preparing the sauce, ensuring the dish is prepared correctly.</p>
 
+<p>However, this code can cause a deadlock if multiple consumers are present.</p>
+
+<p>Here’s why:</p>
+
+<ol>
+  <li>If multiple consumer threads are waiting on the sauce_cond condition variable, only one of them will be woken up and will continue executing.</li>
+  <li>The other consumer threads will still be waiting on the sauce_cond condition variable, holding the sauce_mutex lock.</li>
+  <li>When the producer thread tries to produce the sauce again, it will block on the sauce_mutex lock, waiting for one of the consumer threads to release it.</li>
+  <li>But the consumer threads are still waiting on the sauce_cond condition variable, and none of them can release the sauce_mutex lock because they are blocked.</li>
+  <li>This creates a deadlock situation, where the producer thread is waiting for a consumer thread to release the sauce_mutex lock, and the consumer threads are waiting for the producer thread to signal the sauce_cond condition variable again.</li>
+</ol>
+
+<p>By using <code class="language-plaintext highlighter-rouge">pthread_mutex_lock</code> and <code class="language-plaintext highlighter-rouge">pthread_mutex_unlock</code> with condition variables, we can ensure that only one thread can access the critical section of code at a time, preventing race conditions and ensuring thread safety.</p>
+
 <h3 id="example-3-reader-writer-problem-with-semaphores">Example 3: Reader-Writer Problem with Semaphores</h3>
 
 <p>Our head chef, Gloria, has meticulously recorded all her grandmother’s recipes in her treasured recipe book, which only she is allowed to modify. Her team of chefs, including Phil, Claire, Alex and Luke, need to access to prepare different dishes.</p>
