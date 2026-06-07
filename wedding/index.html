@@ -1,0 +1,438 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Snehal &amp; Mridul | Ethereal Union</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#d1c4b8",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#debfc2",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#303030",
+                        "primary-container": "#f3e5d8",
+                        "on-primary-container": "#70665b",
+                        "primary": "#665d53",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#4c463f",
+                        "on-secondary-fixed-variant": "#574144",
+                        "on-secondary-container": "#755d5f",
+                        "on-secondary-fixed": "#281719",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1b1c1c",
+                        "secondary": "#70585b",
+                        "secondary-fixed": "#fbdbde",
+                        "primary-fixed": "#eee0d3",
+                        "surface-dim": "#dbd9d9",
+                        "outline": "#7e766e",
+                        "surface-container": "#efeded",
+                        "on-background": "#1b1c1c",
+                        "tertiary-container": "#c0f3d8",
+                        "secondary-container": "#f8d8db",
+                        "on-tertiary-container": "#42715b",
+                        "on-tertiary-fixed-variant": "#204f3c",
+                        "surface": "#fbf9f8",
+                        "inverse-primary": "#d1c4b8",
+                        "background": "#fbf9f8",
+                        "inverse-on-surface": "#f2f0f0",
+                        "surface-bright": "#fbf9f8",
+                        "surface-container-high": "#eae8e7",
+                        "on-tertiary-fixed": "#002114",
+                        "on-primary-fixed": "#211a13",
+                        "tertiary": "#396752",
+                        "tertiary-fixed": "#bbeed3",
+                        "outline-variant": "#cfc5bc",
+                        "tertiary-fixed-dim": "#a0d1b8",
+                        "surface-tint": "#665d53",
+                        "surface-container-highest": "#e4e2e2",
+                        "surface-variant": "#e4e2e2",
+                        "on-primary-fixed-variant": "#4e453c",
+                        "on-error-container": "#93000a",
+                        // Dark Mode Specific Palette
+                        "dark-surface": "#1a2421", // Midnight Green
+                        "dark-surface-variant": "#242f2b",
+                        "dark-primary": "#eee0d3", // Cream/Gold for contrast
+                        "dark-on-surface": "#eee0d3",
+                        "dark-on-surface-variant": "#cfc5bc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "stack-sm": "8px",
+                        "margin-desktop": "80px",
+                        "stack-md": "16px",
+                        "gutter": "16px",
+                        "margin-mobile": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "headline-sm": ["Playfair Display"],
+                        "label-caps": ["Montserrat"],
+                        "display-lg": ["Playfair Display"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .scrolled-header {
+            background-color: rgba(251, 249, 248, 0.95);
+            backdrop-filter: blur(12px);
+        }
+        .dark .scrolled-header {
+            background-color: rgba(26, 36, 33, 0.95);
+        }
+        .botanical-overlay {
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+            opacity: 0.08;
+        }
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(27, 28, 28, 0.1), rgba(27, 28, 28, 0.4));
+        }
+        /* Custom dark mode override for specific elements not easily handled by utility classes */
+        .dark body {
+            background-color: #1a2421;
+            color: #eee0d3;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-x-hidden dark:bg-dark-surface dark:text-dark-on-surface transition-colors duration-300">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-secondary/10 bg-surface/80 dark:bg-dark-surface/80 dark:border-white/5 backdrop-blur-md">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-[1440px] mx-auto">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-dark-primary cursor-pointer active:opacity-70 md:hidden">menu</span>
+<nav class="hidden md:flex gap-8">
+<a class="font-label-caps text-label-caps text-primary dark:text-dark-primary hover:text-secondary dark:hover:text-primary-fixed-dim transition-colors" href="#">OUR STORY</a>
+<a class="font-label-caps text-label-caps text-primary dark:text-dark-primary hover:text-secondary dark:hover:text-primary-fixed-dim transition-colors" href="#">SCHEDULE</a>
+</nav>
+</div>
+<h1 class="font-display-lg text-headline-sm md:text-headline-md text-primary dark:text-dark-primary tracking-tighter">S &amp; M</h1>
+<div class="flex items-center gap-4">
+<nav class="hidden md:flex gap-8 mr-4">
+<a class="font-label-caps text-label-caps text-primary dark:text-dark-primary hover:text-secondary dark:hover:text-primary-fixed-dim transition-colors" href="#">LOCATION</a>
+</nav>
+<!-- Theme Toggle Button -->
+<button class="p-2 flex items-center justify-center text-primary dark:text-dark-primary hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-all" id="theme-toggle">
+<span class="material-symbols-outlined" id="theme-toggle-icon">dark_mode</span>
+</button>
+<a class="font-label-caps text-label-caps text-primary dark:text-dark-primary hover:text-secondary border border-primary/20 dark:border-dark-primary/20 px-6 py-2 hover:border-primary dark:hover:border-dark-primary transition-all duration-300 cursor-pointer active:opacity-70" href="https://docs.google.com/forms/d/1kDYAOGpt3ov_idI3EtZGimbUip0PhlCiDd6vf2P5zQE/preview" target="_blank">RSVP</a>
+</div>
+</div>
+</header>
+<main class="w-full">
+<!-- Hero Section -->
+<section class="relative h-screen w-full flex items-center justify-center text-center overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center md:bg-fixed" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOWcDg8riNMpHmqlqYioNru24wgKlS2lZRr365alts7AinVCiQuIkdjo2_8XdfCURsnPJXRUhHkwh-br0gMue7TJd3kWI_t749tHN6vbAGcC-bXxDjkuS2nNo7TYlQCvnf3RHn5guRHQA54X2SeNStzeoAL4EtZpuqkqk5l35k14B9EMOL25Fyz5at0XuAHYEgsAtT0ilxThhI6ZoFQtZLvSi-_2cAhfC8eVp2wBngX3Jgr26koZnWdjXe2bYAL7Fze5OO2v8LG3F3');">
+<div class="absolute inset-0 hero-overlay"></div>
+</div>
+<div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-4xl animate-in fade-in slide-in-from-bottom-8 duration-1000">
+<span class="font-label-caps text-label-caps text-primary-fixed dark:text-dark-primary uppercase tracking-[0.4em] mb-6 block">Save the Date</span>
+<h2 class="font-display-lg text-[64px] md:text-[88px] leading-tight text-white mb-4 italic drop-shadow-sm">Snehal &amp; Mridul</h2>
+<div class="h-[1px] w-24 bg-primary-fixed/50 mx-auto my-8"></div>
+<p class="font-headline-sm text-headline-sm md:text-headline-md text-primary-fixed dark:text-dark-primary font-light">July 2026</p>
+<div class="mt-16">
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
+<span class="material-symbols-outlined text-white/90 text-[40px]">expand_more</span>
+</div>
+</section>
+<!-- Our Story / Intro -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto text-center relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-40 h-40 pointer-events-none opacity-10 hidden md:block">
+<span class="material-symbols-outlined text-[160px] text-tertiary dark:text-tertiary-fixed-dim">spa</span>
+</div>
+<h3 class="font-label-caps text-label-caps text-secondary dark:text-secondary-fixed-dim mb-6 tracking-widest uppercase">THE JOURNEY</h3>
+<h2 class="font-headline-md md:text-display-lg text-headline-md text-primary dark:text-dark-primary mb-stack-md italic">A Union of Hearts</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant dark:text-dark-on-surface-variant leading-relaxed max-w-2xl mx-auto">Amidst the lush greenery and gentle rains of the monsoon season, we invite you to witness the beginning of our forever. A celebration of love, commitment, and the beautiful chapters yet to be written as we embark on this new path together.</p>
+</section>
+<!-- Wedding Details Grid -->
+<section class="bg-surface-container-low dark:bg-dark-surface-variant py-section-gap px-margin-mobile md:px-margin-desktop transition-colors">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-12">
+<h3 class="font-label-caps text-label-caps text-secondary dark:text-secondary-fixed-dim mb-6 tracking-widest uppercase">CELEBRATIONS</h3>
+<h2 class="font-headline-md md:text-display-lg text-primary dark:text-dark-primary italic">The Wedding Events</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter lg:gap-12 mb-12">
+<!-- Ceremony Card -->
+<div class="p-10 md:p-14 border border-tertiary/10 dark:border-white/5 flex flex-col items-center text-center transition-all duration-500 hover:shadow-xl bg-surface dark:bg-dark-surface group">
+<span class="material-symbols-outlined text-tertiary dark:text-tertiary-fixed-dim mb-6 text-[40px] transition-transform group-hover:scale-110">church</span>
+<h4 class="font-label-caps text-label-caps text-secondary dark:text-secondary-fixed-dim mb-4 tracking-widest uppercase">Wedding CEREMONY</h4>
+<div class="font-label-caps text-[12px] text-primary/60 dark:text-dark-primary/60 mb-2">JULY 1, 2026</div>
+<p class="font-headline-sm text-[32px] text-primary dark:text-dark-primary mb-3">12:45 PM</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant dark:text-dark-on-surface-variant mb-8 max-w-[250px]">Multipurpose Hall, JNPT Township, Navi Mumbai</p>
+<a class="flex items-center gap-2 text-primary dark:text-dark-primary font-label-caps text-label-caps border-b border-primary/20 dark:border-dark-primary/20 pb-1 hover:border-primary dark:hover:border-dark-primary transition-all" href="https://maps.app.goo.gl/c1T1TX6enyWKxwGX8">
+                            VIEW LOCATION <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+</div>
+<!-- Reception 1 Card -->
+<div class="p-10 md:p-14 border border-tertiary/10 dark:border-white/5 flex flex-col items-center text-center transition-all duration-500 hover:shadow-xl bg-surface dark:bg-dark-surface group">
+<span class="material-symbols-outlined text-tertiary dark:text-tertiary-fixed-dim mb-6 text-[40px] transition-transform group-hover:scale-110">restaurant</span>
+<h4 class="font-label-caps text-label-caps text-secondary dark:text-secondary-fixed-dim mb-4 tracking-widest uppercase">Wedding RECEPTION</h4>
+<div class="font-label-caps text-[12px] text-primary/60 dark:text-dark-primary/60 mb-2">JULY 1, 2026</div>
+<p class="font-headline-sm text-[32px] text-primary dark:text-dark-primary mb-3">3:00 PM</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant dark:text-dark-on-surface-variant mb-8 max-w-[250px]">Multipurpose Hall, JNPT Township, Navi Mumbai</p><a class="inline-flex items-center gap-2 text-primary dark:text-dark-primary font-label-caps text-[12px] border-b border-primary/20 dark:border-dark-primary/20 pb-1 mt-4 hover:border-primary dark:hover:border-dark-primary transition-all" href="https://maps.app.goo.gl/LC4P9HVSUnZUffrq9" target="_blank">VIEW ON MAP <span class="material-symbols-outlined text-[14px]">open_in_new</span></a>
+<div class="font-label-caps text-label-caps text-primary/70 dark:text-dark-primary/70 tracking-[0.2em] px-6 py-2 border border-primary/10 dark:border-white/10 rounded-full">
+                            LUNCH
+                        </div>
+</div>
+</div>
+<!-- Second Reception Card (Durg) -->
+<div class="max-w-2xl mx-auto">
+<div class="p-10 md:p-14 border border-tertiary/10 dark:border-white/5 flex flex-col items-center text-center transition-all duration-500 hover:shadow-xl bg-surface dark:bg-dark-surface group">
+<span class="material-symbols-outlined text-tertiary dark:text-tertiary-fixed-dim mb-6 text-[40px] transition-transform group-hover:scale-110">celebration</span>
+<h4 class="font-label-caps text-label-caps text-secondary dark:text-secondary-fixed-dim mb-4 tracking-widest uppercase">Groom's Side Reception</h4>
+<div class="font-label-caps text-[12px] text-primary/60 dark:text-dark-primary/60 mb-2">JULY 3, 2026</div>
+<p class="font-headline-sm text-[32px] text-primary dark:text-dark-primary mb-3">7:30 PM</p>
+<p class="font-body-lg text-body-lg text-on-surface-variant dark:text-dark-on-surface-variant mb-8 max-w-[300px]">Prithvi Palace, Durg, Raipur</p><a class="flex items-center gap-2 text-primary dark:text-dark-primary font-label-caps text-label-caps border-b border-primary/20 dark:border-dark-primary/20 pb-1 hover:border-primary dark:hover:border-dark-primary transition-all" href="https://maps.app.goo.gl/LC4P9HVSUnZUffrq9" target="_blank">VIEW LOCATION <span class="material-symbols-outlined text-[16px]">open_in_new</span></a>
+<div class="font-label-caps text-label-caps text-primary/70 dark:text-dark-primary/70 tracking-[0.2em] px-6 py-2 border border-primary/10 dark:border-white/10 rounded-full">
+                            DINNER
+                        </div>
+</div>
+</div>
+<!-- Date Callout -->
+<div class="mt-gutter lg:mt-12 p-12 md:p-16 bg-primary-container dark:bg-primary/20 text-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[400px] absolute -bottom-20 -left-20 rotate-12 text-primary dark:text-white">local_florist</span>
+</div>
+<div class="relative z-10">
+<h3 class="font-label-caps text-label-caps text-on-primary-container dark:text-dark-primary mb-4 tracking-[0.3em]">THE JOURNEY CONTINUES</h3>
+<div class="font-display-lg text-[48px] md:text-[64px] text-primary dark:text-dark-primary leading-tight mb-4 italic">Two Cities, One Love</div>
+<p class="font-headline-sm text-headline-sm text-on-primary-container dark:text-dark-on-surface-variant tracking-widest uppercase">Navi Mumbai &amp; Durg</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Visual Anchor (Full Width Image) -->
+<section class="h-[50vh] md:h-[70vh] w-full overflow-hidden relative">
+<img alt="Romantic Ghibli-style illustration" class="w-full h-full object-cover grayscale-[20%] dark:grayscale-[40%] opacity-95 transition-transform duration-[2s] hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLva-I-V0W0UAEsSr8kFqglnKS1LHdQUlcjKoreQqmiKJurLJ5WQ9oPpru_wbN2gEUpHzZ2Qtp7k9TNQYb4vCH9qksR9eV5scylwjUYtEmUjqAXGLIJb2UsbwAKRgudvpxRnSj8FT4l5OCL6HEZpFDiO19SPkSw-FNaz5U0Av79u2Cr8OZVKS9EjyqQSHgXorOThZI5TPTB4R_E_v36ZfgCLkviuwp2OcXsHpwQGKbQz_mF5-UbpGQgjImBK">
+<div class="absolute inset-0 bg-primary/5 dark:bg-dark-surface/30"></div>
+</section>
+<!-- Travel & Venue Info -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low dark:bg-dark-surface-variant transition-colors">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-12">
+<h3 class="font-label-caps text-label-caps text-secondary dark:text-secondary-fixed-dim mb-6 tracking-widest uppercase">LOGISTICS</h3>
+<h2 class="font-headline-md md:text-display-lg text-primary dark:text-dark-primary italic">Travel &amp; Venue Information</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Navi Mumbai Logistics -->
+<div class="bg-surface dark:bg-dark-surface p-8 md:p-12 border border-tertiary/10 dark:border-white/5 shadow-sm">
+<h4 class="font-headline-sm text-primary dark:text-dark-primary mb-8 border-b border-primary/10 pb-4 italic">Navi Mumbai (Uran)</h4>
+<div class="flex flex-col gap-6">
+<div class="flex items-start gap-4">
+<span class="text-2xl">📍</span>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary dark:text-dark-primary mb-2">WEDDING AT</h4>
+<p class="font-body-lg text-on-surface-variant dark:text-dark-on-surface-variant">JNPT Multipurpose Hall</p>
+</div>
+</div>
+<div class="h-[1px] bg-outline-variant/30 dark:bg-white/10 w-full"></div>
+<div class="flex items-start gap-4">
+<span class="text-2xl">✈️</span>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary dark:text-dark-primary mb-2">NEAREST AIRPORT</h4>
+<ul class="font-body-md text-on-surface-variant dark:text-dark-on-surface-variant space-y-2">
+<li class=""><strong class="text-primary dark:text-dark-primary">Navi Mumbai International Airport (NMIA):</strong> (20 km / 30 mins drive)</li>
+<li class=""><strong class="text-primary dark:text-dark-primary">Mumbai Airport (BOM):</strong> (50 km / 1.5 to 2 hours via Atal Setu/MTHL)</li>
+</ul>
+</div>
+</div>
+<div class="h-[1px] bg-outline-variant/30 dark:bg-white/10 w-full"></div>
+<div class="flex items-start gap-4">
+<span class="text-2xl">🚂</span>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary dark:text-dark-primary mb-2">NEAREST RAILWAY</h4>
+<ul class="font-body-md text-on-surface-variant dark:text-dark-on-surface-variant space-y-2">
+<li class=""><strong class="text-primary dark:text-dark-primary">Panvel (PNVL):</strong> ~30 km (45-50 mins drive)</li>
+<li class=""><strong class="text-primary dark:text-dark-primary">Mumbai Central (MMCT):</strong> ~55 km (1 hour 15 mins drive via Atal Setu/MTHL)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Durg Logistics -->
+<div class="bg-surface dark:bg-dark-surface p-8 md:p-12 border border-tertiary/10 dark:border-white/5 shadow-sm">
+<h4 class="font-headline-sm text-primary dark:text-dark-primary mb-8 border-b border-primary/10 pb-4 italic">Durg (Raipur)</h4>
+<div class="flex flex-col gap-6">
+<div class="flex items-start gap-4">
+<span class="text-2xl">📍</span>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary dark:text-dark-primary mb-2">RECEPTION AT</h4>
+<p class="font-body-lg text-on-surface-variant dark:text-dark-on-surface-variant">Prithvi Palace, Durg</p><a class="inline-flex items-center gap-2 text-primary dark:text-dark-primary font-label-caps text-[12px] border-b border-primary/20 dark:border-dark-primary/20 pb-1 mt-4 hover:border-primary dark:hover:border-dark-primary transition-all" href="https://maps.app.goo.gl/LC4P9HVSUnZUffrq9" target="_blank">VIEW ON MAP <span class="material-symbols-outlined text-[14px]">open_in_new</span></a>
+</div>
+</div>
+<div class="h-[1px] bg-outline-variant/30 dark:bg-white/10 w-full"></div>
+<div class="flex items-start gap-4">
+<span class="text-2xl">✈️</span>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary dark:text-dark-primary mb-2">NEAREST AIRPORT</h4>
+<ul class="font-body-md text-on-surface-variant dark:text-dark-on-surface-variant space-y-2">
+<li class=""><strong class="text-primary dark:text-dark-primary">Raipur (RPR):</strong> Swami Vivekananda Airport (~50 km / 90 mins drive)</li>
+</ul>
+</div>
+</div>
+<div class="h-[1px] bg-outline-variant/30 dark:bg-white/10 w-full"></div>
+<div class="flex items-start gap-4">
+<span class="text-2xl">🚂</span>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary dark:text-dark-primary mb-2">NEAREST RAILWAY</h4>
+<ul class="font-body-md text-on-surface-variant dark:text-dark-on-surface-variant space-y-2">
+<li class=""><strong class="text-primary dark:text-dark-primary">Durg Railway Station:</strong> (0 km / 10 mins from Home)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RSVP Call to Action -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-secondary-container/30 dark:bg-tertiary/10 relative transition-colors">
+<div class="absolute top-0 left-0 w-full h-full pointer-events-none botanical-overlay flex items-center justify-center">
+<span class="material-symbols-outlined text-[300px] md:text-[500px] text-tertiary dark:text-tertiary-fixed-dim">potted_plant</span>
+</div>
+<div class="relative z-10 max-w-2xl mx-auto text-center">
+<h2 class="font-headline-md md:text-display-lg text-primary dark:text-dark-primary mb-6 italic">Will You Join Us?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant dark:text-dark-on-surface-variant mb-12 max-w-md mx-auto">Please kindly respond by June 10th, 2026 to help us finalize arrangements for our special day.</p>
+<div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+<a class="w-full md:w-auto min-w-[280px] bg-primary dark:bg-dark-primary text-white dark:text-on-background font-label-caps text-label-caps py-5 px-12 tracking-[0.2em] hover:bg-primary/90 dark:hover:bg-dark-primary/90 transition-all shadow-md text-center" href="https://docs.google.com/forms/d/1kDYAOGpt3ov_idI3EtZGimbUip0PhlCiDd6vf2P5zQE/preview" target="_blank">
+                        OPEN RSVP FORM
+                    </a>
+</div>
+<p class="mt-8 font-body-md text-on-surface-variant dark:text-dark-on-surface-variant italic opacity-70">A new window will open to complete your response</p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-dark-surface-variant w-full flex flex-col items-center gap-stack-md py-20 px-margin-mobile md:px-margin-desktop text-center border-t border-secondary/5 dark:border-white/5 transition-colors">
+<h2 class="font-display-lg text-primary dark:text-dark-primary mb-4">S &amp; M</h2>
+<div class="flex flex-wrap justify-center gap-x-12 gap-y-4 mb-8">
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-dark-on-surface-variant hover:text-secondary dark:hover:text-primary transition-colors" href="#">OUR STORY</a>
+<span class="hidden md:inline text-outline-variant dark:text-white/20">•</span>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-dark-on-surface-variant hover:text-secondary dark:hover:text-primary transition-colors" href="#">SCHEDULE</a>
+<span class="hidden md:inline text-outline-variant dark:text-white/20">•</span>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-dark-on-surface-variant hover:text-secondary dark:hover:text-primary transition-colors" href="#">LOCATION</a>
+</div>
+<div class="h-[1px] w-12 bg-outline-variant dark:bg-white/20 mb-8"></div>
+<p class="font-body-md text-body-md text-primary/60 dark:text-dark-primary/60 tracking-wider">With Love, Snehal &amp; Mridul © 2026</p>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex md:hidden justify-around items-center px-2 py-3 bg-surface dark:bg-dark-surface border-t border-secondary/10 dark:border-white/5">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-dark-on-surface-variant/60 hover:text-primary dark:hover:text-dark-primary transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-dark-on-surface-variant/60 hover:text-primary dark:hover:text-dark-primary transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">event</span>
+<span class="font-label-caps text-[10px] mt-1">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-dark-on-surface-variant/60 hover:text-primary dark:hover:text-dark-primary transition-all duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-caps text-[10px] mt-1">Location</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-dark-primary transition-all duration-200 active:scale-95" href="https://docs.google.com/forms/d/1kDYAOGpt3ov_idI3EtZGimbUip0PhlCiDd6vf2P5zQE/preview" target="_blank">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
+<span class="font-label-caps text-[10px] mt-1">RSVP</span>
+</a>
+</nav>
+<script>
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+        const html = document.documentElement;
+
+        // Check for saved user preference, otherwise use system preference
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            themeToggleIcon.textContent = 'light_mode';
+        } else {
+            html.classList.remove('dark');
+            themeToggleIcon.textContent = 'dark_mode';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeToggleIcon.textContent = 'dark_mode';
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggleIcon.textContent = 'light_mode';
+            }
+        });
+
+        // Header scroll behavior
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 80) {
+                header.classList.add('scrolled-header', 'py-2');
+                header.querySelector('div').classList.replace('py-4', 'py-3');
+            } else {
+                header.classList.remove('scrolled-header', 'py-2');
+                header.querySelector('div').classList.replace('py-3', 'py-4');
+            }
+        });
+
+        // Simple animation on scroll
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-12');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            if (!section.classList.contains('relative') || section.tagName === 'SECTION') {
+                if(!section.classList.contains('h-screen')) {
+                    section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-12', 'ease-out');
+                    observer.observe(section);
+                }
+            }
+        });
+    </script>
+
+
+</body></html>
