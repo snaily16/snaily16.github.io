@@ -5,7 +5,7 @@ title: publications
 description: publications by categories in reversed chronological order.
 years: []
 nav: false
-nav_order: 1
+nav_order:5
 ---
 <!-- _pages/publications.md -->
 <div class="publications">

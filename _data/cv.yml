@@ -36,9 +36,20 @@
 - title: Experience
   type: time_table
   contents:
+    - title: Software Engineer — Embedded Systems Runtime and Firmware
+      institution: Google (Silicon / Pixel Hardware), Bangalore, India
+      year: 2024 - Present
+      description:
+        - "<b>Led Edge AI Runtime Silicon Bring-Up:</b> Drove EdgeTPU (NPU) and Neural HAL enablement for next-generation Google Tensor mobile SoCs, resolving early-silicon dynamic linker faults, platform detection logic, and kernel security permissions to achieve stable on-device ML execution."
+        - "<b>Spearheaded Fleet-Wide NNAPI Deprecation:</b> Authored technical justification and executed platform-level decommissioning of legacy NNAPI vendor HALs across Android; verified OS stability and quantified a 15.2x latency surge and 81% CPU thread stall across top 1P/3P applications to accelerate ecosystem transition to LiteRT."
+        - "<b>End-to-End Bug Triage Platform Implementation:</b> Implemented an automated bug triage service completely from the ground up using Google Cloud Spanner distributed locking to eliminate race conditions across microservices; reduced manual issue duplication by 50%, automated crash artifact/ramdump processing, and saved 5–10 engineering hours/week."
+        - "<b>Zero-Overhead Kernel Hang Detection:</b> Designed an atomic RAII tracker with 100% coverage over DSP/ISP kernel driver interactions integrated with watchdog diagnostics; resolved critical runtime issues on Pixel phones, improving overall system stability by 30%."
+        - "<b>Camera Test Automation & HW Verification:</b> Built automated testing suites using Python and ADB covering all camera algorithms and use cases; developed low-level verification tests for critical hardware behaviors (DMA buffers, power management/DVFS), optimizing multi-firmware performance benchmarking."
+        - "<b>Telemetry Profiling & Memory Optimization:</b> Synchronized userspace memory (showmap RSS/PSS), kernel DMA buffers (dmabuf_dump), and CPU cycles (simpleperf) for in-depth system trace analysis; developed C-API controls for dynamic memory pool sizing and automated TCM allocator resets."
+        - "<b>Dynamic Tensor Execution in LiteRT:</b> Engineered support for dynamic tensor dimensions in LiteRT delegate kernels, enabling hardware-accelerated on-device execution for variable-input vision and language models."
     - title: Software Developer Associate 
       institution: Halliburton, Bangalore
-      year: 2022 - Current
+      year: 2022 - 2024
       description:
         - Implemented Landmark Secrets Management (LSM) to automate the rotation of security credentials in AWS and Azure cloud environments
         - Developed an error notification system using Python and NerdGraph GraphQL API of New Relic, deploying AWS Lambda and Azure Functions via Terraform.
